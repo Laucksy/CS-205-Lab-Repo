@@ -1,13 +1,17 @@
+#include "configuration.h"
+#include "iostream"
 #include "log.h"
-
-// Object of type Log globally instantiated.
-Log err_log;
+using namespace std;
 
 int main(int argc, char *argv[])
 {
-    // Here the first err_log << string will be evaluated,
-    // returning err_log, so the next err_log << can be evaluated.
-    err_log << "test" << "test" << "test" << "test";
+    Configuration config;
+    //config.setConfig("name", "erik laucks");
+    //config.setConfig("age", "17");
+    //config.setConfig("archetype", "nerd");
+    config.write();
+    cout << "\n";
+    config.read();
 
     return 0;
 }
