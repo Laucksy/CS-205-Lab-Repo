@@ -12,6 +12,7 @@ class Log
 public:
 
     Log();  // default constructor
+    Log(std::string fileName); // string passing constructor
     ~Log(); // destructor
 
     // overloaded handler operator
