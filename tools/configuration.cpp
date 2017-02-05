@@ -7,61 +7,82 @@
 #include "map"
 using namespace std;
 
-/*
-A map template should be used to store the information. Details about maps can be found in chapter 21.6 of the C++ book.
-The Configuration class should be performing exception handling for the file manipulation and other features of the class.
-There should be one method for set and get each.
-The organization of the file is up to you, but the most reasonable structure is each line is a key-value pair
-    separated by some special character that is not used in the key or value.
-There must be methods for reloading and storing the object state from and to the file.
-There should be methods to set/change a file path and a file name.
-Overloaded operators can be used in the implementation, for setting and reading key-values, but keep it simple for now.
-Methods for loading (when first loading the stored configuration) and reloading (an existing stored configuration)
-    into the class should clear out any existing map data. Note, this code should be separate
-    from the methods to store path/file names for flexibility.
-*/
-
 map<string,string> configMap;
-string fileName = "config.txt";
+char delim = '|';
+string filePath = ""; //Default filepath
+string fileName = "config.txt"; //Hardcoded filename (option 1)
 
+/* Default constructor
+ */
 Configuration::Configuration() {
-    read();
+    read(); //Loads file data into map
 }
 
+/* Constructor if the user wants to pass a file name
+ * param: string fn, the name of the file
+ */
+Configuration::Configuration(string fp, string fn) {
+    filePath = fp;
+    fileName = fn;
+    read(); //Loads file data into map
+}
+
+/* Default destructor
+ */
 Configuration::~Configuration() {
-    write();
+    write(); //Writes map data to file
 }
 
+/* Returns the value in the map for a given key
+ * param: string key, the key to search for in the map
+ * return: the value for the given key
+ */
 string Configuration::getConfig(string key) {
     if(configMap.find(key) != configMap.end())
         return configMap.find(key)->second;
     else
-        return "";
+        return ""; //Returns empty string if key isn't found
 }
 
+/* Sets the value for a key, overwriting a value if the key already exists.
+ * param: key to add
+ * param: value to add
+ */
 void Configuration::setConfig(string key, string value) {
     configMap[key] = value;
 }
 
+/* Sets the file path
+ * param: file path
+ */
+void Configuration::setFilePath(string fp) {
+    filePath = fp;
+}
+
+/* Sets the file name
+ * param: file name
+ */
 void Configuration::setFileName(string fn) {
     fileName = fn;
 }
 
+/* Reads the file and puts the data into a map
+ */
 void Configuration::read() {
     try {
         string line;
-        ifstream file(fileName);
+        ifstream file(filePath + fileName); //Open the file
         if(file.is_open()) {
-            configMap.clear();
-            while(getline(file,line)) {
+            configMap.clear(); //Empty the map
+            while(getline(file,line)) { //Loops through each line of the file
                 stringstream ss(line);
                 string item;
                 vector<string> tokens;
-                while(getline(ss, item, '|')) {
-                    tokens.push_back(item);
+                while(getline(ss, item, delim)) {
+                    tokens.push_back(item); //Separates line into key and value
                 }
                 cout << tokens.size() << "," << tokens[0] << "," << tokens[1] << "\n";
-                configMap[tokens[0]] = tokens[1];
+                configMap[tokens[0]] = tokens[1]; //Add key/value pair to map
             }
             file.close();
         }
@@ -70,12 +91,14 @@ void Configuration::read() {
     }
 }
 
+/* Write from the map to the file
+ */
 void Configuration::write() {
     try {
         ofstream file;
-        file.open(fileName, ios::out);
-        for(map<string,string>::iterator iter=configMap.begin(); iter!=configMap.end(); ++iter)
-            file << iter->first << "|" << iter->second << '\n';
+        file.open(filePath + fileName, ios::out); //Open the file
+        for(map<string,string>::iterator iter=configMap.begin(); iter!=configMap.end(); ++iter) //Iterate through all map elements
+            file << iter->first << delim << iter->second << '\n'; //Write key/value to file separated by delimeter
         file.close();
     } catch(exception &e) {
         cout << e.what() << "\n";
