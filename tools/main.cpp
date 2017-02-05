@@ -5,7 +5,7 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-    /*Configuration Code
+    /*Configuration Code*/
     Configuration config;
     //config.setConfig("name", "erik laucks");
     //config.setConfig("age", "17");
@@ -14,8 +14,6 @@ int main(int argc, char *argv[])
     cout << "\n";
     config.read();
 
-    return 0;
-    */
 
     //Log Code
 
@@ -31,4 +29,5 @@ int main(int argc, char *argv[])
     logger.close();
     logger.flush();
 
+    return 0;
 }

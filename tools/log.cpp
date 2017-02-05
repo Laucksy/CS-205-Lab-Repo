@@ -2,16 +2,20 @@
 #include <iostream>
 using namespace std;
 string fN = "";
+
 // In the default constructor the file handler is opened.
-Log::Log() {
-    fh.open("exampleLogFile.txt", std::ofstream::out | std::ofstream::app );
-}
+//Log::Log() {
+//    fh.open("exampleLogFile.txt", std::ofstream::out | std::ofstream::app );
+//}
 
 /*
  * Passes the file name in this constructor for which file will be opening
  */
 Log::Log(std::string fileName){
     fN = fileName;
+    try {
+        fh.open(fN, std::ofstream::out | std::ofstream::app );
+    } catch(exception &e) {}
 }
 
 // In the destructor the file handler is closed.
@@ -24,11 +28,12 @@ Log::~Log() {
  */
 bool Log::openAppend()
 {
-    if(fh.is_open())
-    {
+    if(fh.is_open()) {
         return false;
-    }else {
-        fh.open(fN, std::ofstream::out | std::ofstream::app);
+    } else {
+        try {
+            fh.open(fN, std::ofstream::out | std::ofstream::app);
+        } catch(exception &e) {}
         return fh.is_open();
     }
 }
@@ -37,11 +42,12 @@ bool Log::openAppend()
  */
 bool Log::openTruncate()
 {
-    if(fh.is_open())
-    {
+    if(fh.is_open()) {
         return false;
-    }else {
-        fh.open(fN, std::ofstream::out | std::ofstream::trunc);
+    } else {
+        try {
+            fh.open(fN, std::ofstream::out | std::ofstream::trunc);
+        } catch(exception &e) {}
         return fh.is_open();
     }
 }
@@ -51,16 +57,22 @@ bool Log::openTruncate()
  */
 bool Log::close()
 {
-    fh.close();
-    return true;
+    try {
+        fh.close();
+        return true;
+    } catch(exception &e) {}
+    return false;
 }
 /*
  * Flushes the data stream
  */
 bool Log::flush()
 {
-    fh.flush();
-    return true;
+    try {
+        fh.flush();
+        return true;
+    } catch(exception &e) {}
+    return false;
 }
 
 /*
@@ -76,30 +88,43 @@ bool Log::isOpen()
 // operations.
 
 Log& Log::operator<<(std::string str) {
-
-    fh << str;
+    try {
+        fh << str;
+    } catch(exception &e) {}
     return *this;
 }
 Log& Log::operator<<(int integer) {
-    fh << integer;
+    try {
+        fh << integer;
+    } catch(exception &e) {}
     return *this;
 }
 Log& Log::operator<<(char character) {
-    fh << character;
+    try {
+        fh << character;
+    } catch(exception &e) {}
     return *this;
 }
 Log& Log::operator<<(float floatingPoint) {
-    fh << floatingPoint;
+    try {
+        fh << floatingPoint;
+    } catch(exception &e) {}
     return *this;
 }
 Log& Log::operator<<(double doublePoint) {
-    fh << doublePoint;
+    try {
+        fh << doublePoint;
+    } catch(exception &e) {}
     return *this;
 }
 Log& Log::operator<<(wchar_t wideChar) {
-    fh << wideChar;
+    try {
+        fh << wideChar;
+    } catch(exception &e) {}
     return *this;
-}/*
+}
+
+/*
 Log& Log::operator<<(bool boolean) {
     if(boolean)
         fh << "True";
