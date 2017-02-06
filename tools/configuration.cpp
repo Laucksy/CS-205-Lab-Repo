@@ -13,10 +13,10 @@ char delim = '|';
 string filePath = ""; //Default filepath
 string fileName = "config.txt"; //Hardcoded filename (option 1)
 
+
 /* Default constructor
  */
 Configuration::Configuration() {
-    SHOW_WHERE;
     read(); //Loads file data into map
 }
 

@@ -4,17 +4,13 @@
 using namespace std;
 string fN = "";
 
-// In the default constructor the file handler is opened.
-//Log::Log() {
-//    fh.open("exampleLogFile.txt", std::ofstream::out | std::ofstream::app );
-//}
 
 /*
  * Passes the file name in this constructor for which file will be opening
  */
 Log::Log(std::string fileName){
+
     fN = fileName;
-    SHOW_WHERE;
     try {
         fh.open(fN, std::ofstream::out | std::ofstream::app );
     } catch(exception &e) {}

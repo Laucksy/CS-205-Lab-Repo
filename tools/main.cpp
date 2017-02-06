@@ -16,7 +16,6 @@ int main(int argc, char *argv[])
 
 
     //Log Code
-
     Log logger("testFile.txt");
     logger.openTruncate();
     logger << 679;

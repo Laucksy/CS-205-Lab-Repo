@@ -1,10 +1,11 @@
 #ifndef CONFIGURATION_H
 #define CONFIGURATION_H
 #include "string"
+#include "baseclass.h"
 using namespace std;
 
 
-class Configuration
+class Configuration : public BaseClass
 {
 public:
     Configuration();
