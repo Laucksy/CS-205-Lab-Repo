@@ -1,5 +1,6 @@
 #include "log.h"
 #include <iostream>
+#include "macros.h"
 using namespace std;
 string fN = "";
 
@@ -13,6 +14,7 @@ string fN = "";
  */
 Log::Log(std::string fileName){
     fN = fileName;
+    SHOW_WHERE;
     try {
         fh.open(fN, std::ofstream::out | std::ofstream::app );
     } catch(exception &e) {}
