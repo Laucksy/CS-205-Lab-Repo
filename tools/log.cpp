@@ -9,7 +9,7 @@ string fN = "";
  * Passes the file name in this constructor for which file will be opening
  */
 Log::Log(std::string fileName){
-
+    SHOW_WHERE;
     fN = fileName;
     try {
         fh.open(fN, std::ofstream::out | std::ofstream::app );
@@ -18,6 +18,7 @@ Log::Log(std::string fileName){
 
 // In the destructor the file handler is closed.
 Log::~Log() {
+    SHOW_WHERE;
     fh.close();
 }
 
@@ -26,6 +27,7 @@ Log::~Log() {
  */
 bool Log::openAppend()
 {
+    SHOW_WHERE;
     if(fh.is_open()) {
         return false;
     } else {
@@ -40,6 +42,7 @@ bool Log::openAppend()
  */
 bool Log::openTruncate()
 {
+    SHOW_WHERE;
     if(fh.is_open()) {
         return false;
     } else {
@@ -55,6 +58,7 @@ bool Log::openTruncate()
  */
 bool Log::close()
 {
+    SHOW_WHERE;
     try {
         fh.close();
         return true;
@@ -66,6 +70,7 @@ bool Log::close()
  */
 bool Log::flush()
 {
+    SHOW_WHERE;
     try {
         fh.flush();
         return true;
@@ -78,6 +83,7 @@ bool Log::flush()
  */
 bool Log::isOpen()
 {
+    SHOW_WHERE;
     return fh.is_open();
 }
 
@@ -86,36 +92,42 @@ bool Log::isOpen()
 // operations.
 
 Log& Log::operator<<(std::string str) {
+    SHOW_WHERE;
     try {
         fh << str;
     } catch(exception &e) {}
     return *this;
 }
 Log& Log::operator<<(int integer) {
+    SHOW_WHERE;
     try {
         fh << integer;
     } catch(exception &e) {}
     return *this;
 }
 Log& Log::operator<<(char character) {
+    SHOW_WHERE;
     try {
         fh << character;
     } catch(exception &e) {}
     return *this;
 }
 Log& Log::operator<<(float floatingPoint) {
+    SHOW_WHERE;
     try {
         fh << floatingPoint;
     } catch(exception &e) {}
     return *this;
 }
 Log& Log::operator<<(double doublePoint) {
+    SHOW_WHERE;
     try {
         fh << doublePoint;
     } catch(exception &e) {}
     return *this;
 }
 Log& Log::operator<<(wchar_t wideChar) {
+    SHOW_WHERE;
     try {
         fh << wideChar;
     } catch(exception &e) {}

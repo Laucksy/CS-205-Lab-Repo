@@ -17,6 +17,7 @@ string fileName = "config.txt"; //Hardcoded filename (option 1)
 /* Default constructor
  */
 Configuration::Configuration() {
+    SHOW_WHERE;
     read(); //Loads file data into map
 }
 
@@ -24,6 +25,7 @@ Configuration::Configuration() {
  * param: string fn, the name of the file
  */
 Configuration::Configuration(string fp, string fn) {
+    SHOW_WHERE;
     filePath = fp;
     fileName = fn;
     read(); //Loads file data into map
@@ -32,6 +34,7 @@ Configuration::Configuration(string fp, string fn) {
 /* Default destructor
  */
 Configuration::~Configuration() {
+    SHOW_WHERE;
     write(); //Writes map data to file
 }
 
@@ -40,6 +43,7 @@ Configuration::~Configuration() {
  * return: the value for the given key
  */
 string Configuration::getConfig(string key) {
+    SHOW_WHERE;
     if(configMap.find(key) != configMap.end())
         return configMap.find(key)->second;
     else
@@ -51,6 +55,7 @@ string Configuration::getConfig(string key) {
  * param: value to add
  */
 void Configuration::setConfig(string key, string value) {
+    SHOW_WHERE;
     configMap[key] = value;
 }
 
@@ -58,6 +63,7 @@ void Configuration::setConfig(string key, string value) {
  * param: file path
  */
 void Configuration::setFilePath(string fp) {
+    SHOW_WHERE;
     filePath = fp;
 }
 
@@ -65,12 +71,14 @@ void Configuration::setFilePath(string fp) {
  * param: file name
  */
 void Configuration::setFileName(string fn) {
+    SHOW_WHERE;
     fileName = fn;
 }
 
 /* Reads the file and puts the data into a map
  */
 void Configuration::read() {
+    SHOW_WHERE;
     try {
         string line;
         ifstream file(filePath + fileName); //Open the file
@@ -96,6 +104,7 @@ void Configuration::read() {
 /* Write from the map to the file
  */
 void Configuration::write() {
+    SHOW_WHERE;
     try {
         ofstream file;
         file.open(filePath + fileName, ios::out); //Open the file
