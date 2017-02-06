@@ -9,4 +9,5 @@ SOURCES += main.cpp \
 
 HEADERS += \
     log.h \
-    configuration.h
+    configuration.h \
+    macros.h
