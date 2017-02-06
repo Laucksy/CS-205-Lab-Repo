@@ -8,16 +8,31 @@
 #include "macros.h"
 using namespace std;
 
-map<string,string> configMap;
-char delim = '|';
-string filePath = ""; //Default filepath
-string fileName = "config.txt"; //Hardcoded filename (option 1)
-
-
 /* Default constructor
  */
 Configuration::Configuration() {
     SHOW_WHERE;
+    filePath = ""; //Default filepath
+    fileName = "config.txt"; //Hardcoded filename (option 1)
+    read(); //Loads file data into map
+}
+
+/* Copy constructor
+ */
+Configuration::Configuration(Configuration &obj) {
+    SHOW_WHERE;
+    configMap = obj.configMap;
+    filePath = obj.filePath;
+    fileName = obj.fileName;
+    read(); //Loads file data into map
+}
+
+/* Copy assignment
+ */
+void Configuration::operator=(Configuration &obj) {
+    configMap = obj.configMap;
+    filePath = obj.filePath;
+    fileName = obj.fileName;
     read(); //Loads file data into map
 }
 
