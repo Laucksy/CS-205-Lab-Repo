@@ -2,8 +2,23 @@
 #include <iostream>
 #include "macros.h"
 using namespace std;
-string fN = "";
 
+Log::Log()
+{
+    SHOW_WHERE;
+    fN = "defaultFile.txt";
+}
+
+Log::Log(Log &obj)
+{
+    SHOW_WHERE;
+    fN = obj.fN;
+}
+
+void Log::operator=(Log &obj)
+{
+    fN = obj.fN;
+}
 
 /*
  * Passes the file name in this constructor for which file will be opening
@@ -11,9 +26,7 @@ string fN = "";
 Log::Log(std::string fileName){
     SHOW_WHERE;
     fN = fileName;
-    try {
-        fh.open(fN, std::ofstream::out | std::ofstream::app );
-    } catch(exception &e) {}
+
 }
 
 // In the destructor the file handler is closed.

@@ -13,6 +13,8 @@ class Log : public BaseClass
 public:
 
     Log();  // default constructor
+    Log(Log &obj);
+    void operator=(Log &obj);
     Log(std::string fileName); // string passing constructor
     ~Log(); // destructor
 
@@ -35,6 +37,8 @@ private:
 
     // The file handler.
     std::ofstream fh;
+
+    std::string fN;
 };
 
 

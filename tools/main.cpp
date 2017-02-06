@@ -28,5 +28,11 @@ int main(int argc, char *argv[])
     logger.close();
     logger.flush();
 
+    Log copyLog(logger);
+    copyLog.openTruncate();
+    copyLog << "Thise overwrties";
+    copyLog.close();
+    copyLog.flush();
+
     return 0;
 }
