@@ -12,10 +12,13 @@ public:
     Configuration();
     Configuration(Configuration &obj);
     void operator=(Configuration &obj);
+    Configuration(string fn);
     Configuration(string fp, string fn);
     ~Configuration(); // destructor
     string getConfig(string key);
     void setConfig(string key, string value);
+    string getFilePath();
+    string getFileName();
     void setFilePath(string fp);
     void setFileName(string fn);
     void read();

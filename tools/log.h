@@ -18,6 +18,8 @@ public:
     Log(std::string fileName); // string passing constructor
     ~Log(); // destructor
 
+    std::string getFileName();
+
     // overloaded handler operator
     Log& operator<<(const std::string str);
     Log& operator<<(const int integer);
