@@ -7,9 +7,9 @@ int main(int argc, char *argv[])
 {
     /*Configuration Code*/
     Configuration config;
-    //config.setConfig("name", "erik laucks");
-    //config.setConfig("age", "17");
-    //config.setConfig("archetype", "nerd");
+    //config.set_config("name", "erik laucks");
+    //config.set_config("age", "17");
+    //config.set_config("archetype", "nerd");
     config.write();
     cout << "\n";
     config.read();
@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
 
     //Log Code
     Log logger("testFile.txt");
-    logger.openTruncate();
+    logger.open_truncate();
     logger << 679;
     string hemp = "Werds";
     logger << hemp;
@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
     logger.flush();
 
     Log copyLog(logger);
-    copyLog.openTruncate();
+    copyLog.open_truncate();
     copyLog << "This overwrites";
     copyLog.close();
     copyLog.flush();

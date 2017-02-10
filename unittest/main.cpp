@@ -43,17 +43,17 @@ TEST(general, TESTSIMPLE) {
     /** replace with your own **/
     Configuration s1;
     Configuration s2("test");
-    ASSERT_EQ(s1.getFileName(), s2.getFileName()) << s1.getFileName()
-                                                  << " and "
-                                                  << s2.getFileName()
-                                                  << " should match!";
+    ASSERT_EQ(s1.get_file_name(), s2.get_file_name()) << s1.get_file_name()
+                                                      << " and "
+                                                      << s2.get_file_name()
+                                                      << " should match!";
 }
 
 
 TEST_F(FooTest, TESTFIXTURE) {
 
   /** replace with your own **/
-  ASSERT_EQ(s1.getFileName(), s2.getFileName()) << "These should match!";
+  ASSERT_EQ(s1.get_file_name(), s2.get_file_name()) << "These should match!";
 }
 
 

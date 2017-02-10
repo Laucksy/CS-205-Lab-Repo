@@ -20,15 +20,6 @@ Configuration::Configuration(Configuration &obj) {
     read(); //Loads file data into map
 }
 
-/* Copy assignment
- */
-void Configuration::operator=(Configuration &obj) {
-    configMap = obj.configMap;
-    filePath = obj.filePath;
-    fileName = obj.fileName;
-    read(); //Loads file data into map
-}
-
 /* Constructor if the user wants to pass a file name
  * param: string fn, the name of the file
  */
@@ -56,11 +47,20 @@ Configuration::~Configuration() {
     write(); //Writes map data to file
 }
 
+/* Copy assignment
+ */
+void Configuration::operator=(Configuration &obj) {
+    configMap = obj.configMap;
+    filePath = obj.filePath;
+    fileName = obj.fileName;
+    read(); //Loads file data into map
+}
+
 /* Returns the value in the map for a given key
  * param: string key, the key to search for in the map
  * return: the value for the given key
  */
-string Configuration::getConfig(string key) {
+string Configuration::get_config(string key) {
     SHOW_WHERE;
     if(configMap.find(key) != configMap.end())
         return configMap.find(key)->second;
@@ -72,7 +72,7 @@ string Configuration::getConfig(string key) {
  * param: key to add
  * param: value to add
  */
-void Configuration::setConfig(string key, string value) {
+void Configuration::set_config(string key, string value) {
     SHOW_WHERE;
     configMap[key] = value;
 }
@@ -80,7 +80,7 @@ void Configuration::setConfig(string key, string value) {
 /* Gets the file path
  * return: file path
  */
-string Configuration::getFilePath() {
+string Configuration::get_file_path() {
     SHOW_WHERE;
     return filePath;
 }
@@ -88,7 +88,7 @@ string Configuration::getFilePath() {
 /* Gets the file name
  * return: file name
  */
-string Configuration::getFileName() {
+string Configuration::get_file_name() {
     SHOW_WHERE;
     return fileName;
 }
@@ -96,7 +96,7 @@ string Configuration::getFileName() {
 /* Sets the file path
  * param: file path
  */
-void Configuration::setFilePath(string fp) {
+void Configuration::set_file_path(string fp) {
     SHOW_WHERE;
     filePath = fp;
 }
@@ -104,7 +104,7 @@ void Configuration::setFilePath(string fp) {
 /* Sets the file name
  * param: file name
  */
-void Configuration::setFileName(string fn) {
+void Configuration::set_file_name(string fn) {
     SHOW_WHERE;
     fileName = fn;
 }

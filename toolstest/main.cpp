@@ -28,49 +28,49 @@ class LogTest : public ::testing::Test {
 TEST(ConfigTest, TESTSIMPLE) {
     Configuration s1;
     Configuration s2("config.txt");
-    ASSERT_EQ(s1.getFileName(), s2.getFileName()) << s1.getFileName() << " and " << s2.getFileName() << " should match!";
+    ASSERT_EQ(s1.get_file_name(), s2.get_file_name()) << s1.get_file_name() << " and " << s2.get_file_name() << " should match!";
 }
 
 TEST(ConfigTest, TESTMAP) {
     Configuration s1("testconfig.txt");
-    s1.setConfig("test", "value1");
-    ASSERT_EQ(s1.getConfig("test"), "value1") << "These should match!"; //Tests new key
-    s1.setConfig("test", "value2");
-    ASSERT_EQ(s1.getConfig("test"), "value2") << "These should match!"; //Tests overwriting current key
+    s1.set_config("test", "value1");
+    ASSERT_EQ(s1.get_config("test"), "value1") << "These should match!"; //Tests new key
+    s1.set_config("test", "value2");
+    ASSERT_EQ(s1.get_config("test"), "value2") << "These should match!"; //Tests overwriting current key
 }
 
 TEST(ConfigTest, TESTREADWRITE) {
     Configuration s1("testconfig.txt");
-    s1.setConfig("test", "value1new");
+    s1.set_config("test", "value1new");
     s1.write();
     s1 = *(new Configuration("testconfig.txt"));
-    ASSERT_EQ(s1.getConfig("test"), "value1new") << "These should match!"; //Tests reading/writing from file
+    ASSERT_EQ(s1.get_config("test"), "value1new") << "These should match!"; //Tests reading/writing from file
 }
 
 TEST(LogTest, TESTSIMPLE) {
     Log s1;
     Log s2("defaultFile.txt");
-    ASSERT_EQ(s1.getFileName(), s2.getFileName()) << s1.getFileName() << " and " << s2.getFileName() << " should match!";
+    ASSERT_EQ(s1.get_file_name(), s2.get_file_name()) << s1.get_file_name() << " and " << s2.get_file_name() << " should match!";
 }
 
 TEST(LogTest, TESTOPENTRUNCATE) {
     Log s1("testlog.txt");
-    ASSERT_FALSE(s1.isOpen()) << "File stream shouldn't be open";
-    s1.openTruncate();
-    ASSERT_TRUE(s1.isOpen()) << "File stream should be open";
+    ASSERT_FALSE(s1.is_open()) << "File stream shouldn't be open";
+    s1.open_truncate();
+    ASSERT_TRUE(s1.is_open()) << "File stream should be open";
     s1.close();
     s1.flush();
-    ASSERT_FALSE(s1.isOpen()) << "File stream shouldn't be open";
+    ASSERT_FALSE(s1.is_open()) << "File stream shouldn't be open";
 }
 
 TEST(LogTest, TESTOPENAPPEND) {
     Log s1("testlog.txt");
-    ASSERT_FALSE(s1.isOpen()) << "File stream shouldn't be open";
-    s1.openAppend();
-    ASSERT_TRUE(s1.isOpen()) << "File stream should be open";
+    ASSERT_FALSE(s1.is_open()) << "File stream shouldn't be open";
+    s1.open_append();
+    ASSERT_TRUE(s1.is_open()) << "File stream should be open";
     s1.close();
     s1.flush();
-    ASSERT_FALSE(s1.isOpen()) << "File stream shouldn't be open";
+    ASSERT_FALSE(s1.is_open()) << "File stream shouldn't be open";
 }
 
 int main(int argc, char **argv) {

@@ -13,11 +13,6 @@ Log::Log(Log &obj)
     fN = obj.fN;
 }
 
-void Log::operator=(Log &obj)
-{
-    fN = obj.fN;
-}
-
 /*
  * Passes the file name in this constructor for which file will be opening
  */
@@ -33,17 +28,22 @@ Log::~Log() {
     fh.close();
 }
 
+void Log::operator=(Log &obj)
+{
+    fN = obj.fN;
+}
+
 /*
  * Returns the file name
  */
-string Log::getFileName() {
+string Log::get_file_name() {
     return fN;
 }
 
 /*
  * Opens the data stream in append mode, adding on to any data that was in it before hand
  */
-bool Log::openAppend()
+bool Log::open_append()
 {
     SHOW_WHERE;
     if(fh.is_open()) {
@@ -58,7 +58,7 @@ bool Log::openAppend()
 /*
  * Opens the data stream in truncate mode, removing any data that was in it before hand
  */
-bool Log::openTruncate()
+bool Log::open_truncate()
 {
     SHOW_WHERE;
     if(fh.is_open()) {
@@ -99,7 +99,7 @@ bool Log::flush()
 /*
  * Returns if the data out stream is currently open
  */
-bool Log::isOpen()
+bool Log::is_open()
 {
     SHOW_WHERE;
     return fh.is_open();

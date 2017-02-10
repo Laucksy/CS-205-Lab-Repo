@@ -8,37 +8,36 @@
 
 class Log : public BaseClass
 {
-public:
+    public:
 
-    Log();  // default constructor
-    Log(Log &obj);
-    void operator=(Log &obj);
-    Log(std::string fileName); // string passing constructor
-    ~Log(); // destructor
+        Log();  // default constructor
+        Log(Log &obj);
+        Log(std::string fileName); // string passing constructor
+        ~Log(); // destructor
+        void operator=(Log &obj);
 
-    std::string getFileName();
+        std::string get_file_name();
+        bool open_truncate();
+        bool open_append();
 
-    // overloaded handler operator
-    Log& operator<<(const std::string str);
-    Log& operator<<(const int integer);
-    Log& operator<<(const char character) ;
-    Log& operator<<(const float floatingPoint) ;
-    Log& operator<<(const double doublePoint) ;
-    Log& operator<<(const wchar_t wideChar) ;
+        bool close();
+        bool flush();
+        bool is_open();
 
-    bool openTruncate();
-    bool openAppend();
+        // overloaded handler operator
+        Log& operator<<(const std::string str);
+        Log& operator<<(const int integer);
+        Log& operator<<(const char character);
+        Log& operator<<(const float floatingPoint);
+        Log& operator<<(const double doublePoint);
+        Log& operator<<(const wchar_t wideChar);
 
-    bool close();
-    bool flush();
-    bool isOpen();
+    private:
 
-private:
+        // The file handler.
+        std::ofstream fh;
 
-    // The file handler.
-    std::ofstream fh;
-
-    std::string fN;
+        std::string fN;
 };
 
 
