@@ -1,6 +1,6 @@
 #ifndef BASECLASS_H
 #define BASECLASS_H
-
+#include "macros.h"
 
 class BaseClass
 {

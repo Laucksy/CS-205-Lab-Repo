@@ -1,11 +1,4 @@
 #include "configuration.h"
-#include "iostream"
-#include "fstream"
-#include "sstream"
-#include "string"
-#include "vector"
-#include "map"
-#include "macros.h"
 using namespace std;
 
 /* Default constructor
@@ -33,6 +26,16 @@ void Configuration::operator=(Configuration &obj) {
     configMap = obj.configMap;
     filePath = obj.filePath;
     fileName = obj.fileName;
+    read(); //Loads file data into map
+}
+
+/* Constructor if the user wants to pass a file name
+ * param: string fn, the name of the file
+ */
+Configuration::Configuration(string fn) {
+    SHOW_WHERE;
+    filePath = "";
+    fileName = fn;
     read(); //Loads file data into map
 }
 
@@ -72,6 +75,22 @@ string Configuration::getConfig(string key) {
 void Configuration::setConfig(string key, string value) {
     SHOW_WHERE;
     configMap[key] = value;
+}
+
+/* Gets the file path
+ * return: file path
+ */
+string Configuration::getFilePath() {
+    SHOW_WHERE;
+    return filePath;
+}
+
+/* Gets the file name
+ * return: file name
+ */
+string Configuration::getFileName() {
+    SHOW_WHERE;
+    return fileName;
 }
 
 /* Sets the file path

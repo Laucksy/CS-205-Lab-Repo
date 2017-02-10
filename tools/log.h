@@ -1,5 +1,6 @@
 #ifndef LOG_H
 #define LOG_H
+<<<<<<< HEAD
 
 
 
@@ -8,7 +9,12 @@
 #include <string>
 #include <iostream>
 #include "macros.h"
+=======
+>>>>>>> 99b6df66286747c648f14c18d9620ce7ae415657
 #include "baseclass.h"
+#include "macros.h"
+#include "fstream"
+#include "string"
 
 class Log : public BaseClass
 {
@@ -19,6 +25,8 @@ public:
     void operator=(Log &obj);
     Log(std::string fileName); // string passing constructor
     ~Log(); // destructor
+
+    std::string getFileName();
 
     // overloaded handler operator
     Log& operator<<(const std::string str);

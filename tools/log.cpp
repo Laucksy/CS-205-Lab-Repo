@@ -34,6 +34,13 @@ Log::~Log() {
 }
 
 /*
+ * Returns the file name
+ */
+string Log::getFileName() {
+    return fN;
+}
+
+/*
  * Opens the data stream in append mode, adding on to any data that was in it before hand
  */
 bool Log::openAppend()
