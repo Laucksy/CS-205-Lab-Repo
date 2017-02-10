@@ -6,6 +6,8 @@
 // The header file for the minimal Log class.
 #include <fstream>
 #include <string>
+#include <iostream>
+#include "macros.h"
 #include "baseclass.h"
 
 class Log : public BaseClass

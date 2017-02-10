@@ -1,6 +1,4 @@
 #include "log.h"
-#include <iostream>
-#include "macros.h"
 using namespace std;
 
 Log::Log()
