@@ -4,4 +4,5 @@ SUBDIRS += \
     lab \
     tools \
     unittest \
-    toolstest
+    toolstest \
+    worm
