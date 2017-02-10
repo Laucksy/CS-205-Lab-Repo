@@ -16,8 +16,8 @@ INCLUDEPATH +=  ../gtest                                   \
                 ../gtest/googletest/include/gtest          \
                 ../gtest/googletest/include/gtest/gtest.h
 
-HEADERS += ../tools/robots.h
-SOURCES += ../tools/robots.cpp
+HEADERS += ../engines/robots.h
+SOURCES += ../engines/robots.cpp
 
-HEADERS += ../tools/worm.h
-SOURCES += ../tools/worm.cpp
+HEADERS += ../engines/worm.h
+SOURCES += ../engines/worm.cpp
