@@ -31,6 +31,21 @@ TEST_F(RobotsTest, TESTSIMPLE) {
 TEST_F(WormTest, TESTSIMPLE) {
 }
 
+TEST_F(WormTest, ADDTEST)
+{
+    Worm game1();
+    ASSERT_TRUE(game1.add('a',5,5));
+    ASSERT_TRUE(game1.add('b', 6,7));
+    ASSERT_FALSE(game1.add('d',5,5));
+}
+
+TEST_F(WormTest, GETTEST)
+{
+    Worm game1();
+    ASSERT_TRUE(game1.add('k',5,5));
+    ASSERT_EQ('k', game1.get(5,5));
+}
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
