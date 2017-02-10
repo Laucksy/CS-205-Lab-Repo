@@ -5,4 +5,4 @@ SUBDIRS += \
     tools \
     unittest \
     toolstest \
-    worm
+    engines
