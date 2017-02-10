@@ -1,12 +1,9 @@
 #ifndef LOG_H
 #define LOG_H
-
-
-
-// The header file for the minimal Log class.
-#include <fstream>
-#include <string>
 #include "baseclass.h"
+#include "macros.h"
+#include "fstream"
+#include "string"
 
 class Log : public BaseClass
 {

@@ -1,6 +1,4 @@
 #include "baseclass.h"
-#include "macros.h"
-
 
 // Initialize the static variable that tracks
 // number of objects created.

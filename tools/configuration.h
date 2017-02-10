@@ -1,10 +1,14 @@
 #ifndef CONFIGURATION_H
 #define CONFIGURATION_H
-#include "map"
-#include "string"
 #include "baseclass.h"
+#include "iostream"
+#include "macros.h"
+#include "fstream"
+#include "sstream"
+#include "string"
+#include "vector"
+#include "map"
 using namespace std;
-
 
 class Configuration : public BaseClass
 {

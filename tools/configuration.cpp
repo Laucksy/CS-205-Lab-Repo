@@ -1,11 +1,4 @@
 #include "configuration.h"
-#include "iostream"
-#include "fstream"
-#include "sstream"
-#include "string"
-#include "vector"
-#include "map"
-#include "macros.h"
 using namespace std;
 
 /* Default constructor

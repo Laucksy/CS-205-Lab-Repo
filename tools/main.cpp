@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 
     Log copyLog(logger);
     copyLog.openTruncate();
-    copyLog << "Thise overwrties";
+    copyLog << "This overwrites";
     copyLog.close();
     copyLog.flush();
 
