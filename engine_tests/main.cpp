@@ -25,8 +25,57 @@ class WormTest : public ::testing::Test {
         }
 };
 
-TEST_F(RobotsTest, TESTSIMPLE) {
+TEST_F(RobotsTest, TESTADD) {
+    //void add(char obj, int r, int c);
 }
+
+TEST_F(RobotsTest, TESTGET) {
+    //char get(int r, int c);
+}
+
+TEST_F(RobotsTest, TESTINITBOARD) {
+    //void init_board();
+}
+
+TEST_F(RobotsTest, TESTTURN) {
+    //void turn();
+}
+
+TEST_F(RobotsTest, TESTROBOTMOVE) {
+    //void robot_move(int r, int c, int direction);
+}
+
+TEST_F(RobotsTest, TESTACTION) {
+    //bool action(char input);
+}
+
+TEST_F(RobotsTest, TESTMOVE) {
+    //bool move(int direction, int distance);
+}
+
+TEST_F(RobotsTest, TESTTELEPORT) {
+    //void teleport();
+}
+
+TEST_F(RobotsTest, TESTQUIT) {
+    //void quit();
+}
+
+TEST_F(RobotsTest, TESTDRAW) {
+    //void draw();
+}
+
+TEST_F(RobotsTest, TESTWON) {
+    //bool won();
+}
+
+TEST_F(RobotsTest, TESTLOST) {
+    //bool lost();
+}
+
+
+
+
 
 TEST_F(WormTest, TESTSIMPLE) {
 }
