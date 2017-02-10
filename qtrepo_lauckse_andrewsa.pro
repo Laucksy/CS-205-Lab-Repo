@@ -5,4 +5,5 @@ SUBDIRS += \
     tools \
     unittest \
     toolstest \
-    engines
+    engines \
+    engine_tests
