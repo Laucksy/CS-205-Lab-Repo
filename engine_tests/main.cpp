@@ -1,4 +1,4 @@
-#include <iostream>
+#include "iostream"
 #include "gtest/gtest.h"
 #include "../engines/robots.h"
 #include "../engines/worm.h"
@@ -26,6 +26,7 @@ class WormTest : public ::testing::Test {
         }
 };
 
+//Tests the add and get methods
 TEST_F(RobotsTest, TESTADDGET) {
     //void add(char obj, int r, int c);
     //char get(int r, int c);
@@ -37,10 +38,11 @@ TEST_F(RobotsTest, TESTADDGET) {
     ASSERT_EQ(robot.get(10,10), 'x') << "Added to unavailable spot";
 }
 
+//Tests the init_board method
 TEST_F(RobotsTest, TESTINITBOARD) {
     //void init_board();
     robot.init_board(5);
-    ASSERT_EQ(robot.get(robot.playerRow,robot.playerCol), PSYM) << "Player didn't show up";
+    ASSERT_EQ(robot.get(robot.playerRow,robot.playerCol), PSYM);
     int bots = 0;
     for(int i = 0; i < ROWS; i++) {
         for(int j = 0; j < COLS; j++) {
@@ -52,8 +54,10 @@ TEST_F(RobotsTest, TESTINITBOARD) {
     ASSERT_GT(bots, 0) << "No bots added to world";
 }
 
-TEST_F(RobotsTest, TESTTURN) {
+//Tests the turn method with an input of .
+TEST_F(RobotsTest, TESTTURNPERIOD) {
     //void turn();
+
     robot.init_board(5);
     robot.mode = 1;
     char first[ROWS][COLS];
@@ -72,20 +76,21 @@ TEST_F(RobotsTest, TESTTURN) {
         }
     }
     ASSERT_GT(diffs, 0) << "Nothing changed between turns";
+}
 
-
-
-    robot.init_board(5);
+//Tests the turn method with an input of >
+TEST_F(RobotsTest, TESTTURNGT) {
+    robot.init_board(1);
     int firstRow = robot.playerRow;
     int firstCol = robot.playerCol;
-    //first[ROWS][COLS];
+    char first[ROWS][COLS];
     for(int i = 0; i < ROWS; i++) {
         for(int j = 0; j < COLS; j++) {
             first[i][j] = robot.get(i,j);
         }
     }
     robot.turn('>');
-    diffs = 0;
+    int diffs = 0;
     for(int i = 0; i < ROWS; i++) {
         for(int j = 0; j < COLS; j++) {
             if(first[i][j] != robot.get(i,j)) {
@@ -93,23 +98,26 @@ TEST_F(RobotsTest, TESTTURN) {
             }
         }
     }
-    ASSERT_EQ(robot.mode, 1);
+    //ASSERT_EQ(robot.mode, 1);
     ASSERT_EQ(firstRow, robot.playerRow);
     ASSERT_EQ(firstCol, robot.playerCol);
     ASSERT_GT(diffs, 0) << "Nothing changed between turns";
+}
 
+//Tests the turn method with an input of w
+TEST_F(RobotsTest, TESTTURNW) {
     //Command w
    robot.init_board(5);
-   firstRow = robot.playerRow;
-   firstCol = robot.playerCol;
-   //first[ROWS][COLS];
+   int firstRow = robot.playerRow;
+   int firstCol = robot.playerCol;
+   char first[ROWS][COLS];
    for(int i = 0; i < ROWS; i++) {
        for(int j = 0; j < COLS; j++) {
            first[i][j] = robot.get(i,j);
        }
    }
    robot.turn('w');
-   diffs = 0;
+   int diffs = 0;
    for(int i = 0; i < ROWS; i++) {
        for(int j = 0; j < COLS; j++) {
            if(first[i][j] != robot.get(i,j)) {
@@ -117,112 +125,187 @@ TEST_F(RobotsTest, TESTTURN) {
            }
        }
    }
-   ASSERT_EQ(robot.mode, 2);
+   //ASSERT_EQ(robot.mode, 2);
    ASSERT_EQ(firstRow, robot.playerRow);
    ASSERT_EQ(firstCol, robot.playerCol);
    ASSERT_GT(diffs, 0) << "Nothing changed between turns";
+}
 
-
+//Tests the turn method with an input of up
+TEST_F(RobotsTest, TESTTURNUP) {
    //Moving up
    do {
        robot.init_board(0);
    } while(robot.playerRow != 4 || robot.playerCol != 2);
    robot.turn('k');
-   ASSERT_EQ(robot.get(3,2), PSYM);
+   ASSERT_EQ(robot.get(3,2), PSYM) << "Player position: "
+                                   << robot.playerRow << ", "
+                                   << robot.playerCol;
    robot.turn('K');
-   ASSERT_EQ(robot.get(0,2), PSYM);
+   ASSERT_EQ(robot.get(0,2), PSYM) << "Player position: "
+                                   << robot.playerRow << ", "
+                                   << robot.playerCol;
+}
 
+//Tests the turn method with an input of up right
+TEST_F(RobotsTest, TESTTURNUPRIGHT) {
    //Moving up and right
    do {
        robot.init_board(0);
    } while(robot.playerRow != 2 || robot.playerCol != 0);
    robot.turn('u');
-   ASSERT_EQ(robot.get(1,1), PSYM);
+   ASSERT_EQ(robot.get(1,1), PSYM) << "Player position: "
+                                   << robot.playerRow << ", "
+                                   << robot.playerCol;
    robot.turn('b');
    robot.turn('U');
-   ASSERT_EQ(robot.get(0,0), PSYM);
+   ASSERT_EQ(robot.get(0,2), PSYM) << "Player position: "
+                                   << robot.playerRow << ", "
+                                   << robot.playerCol;
+}
 
+//Tests the turn method with an input of right
+TEST_F(RobotsTest, TESTTURNRIGHT) {
    //Moving right
    do {
        robot.init_board(0);
    } while(robot.playerRow != 2 || robot.playerCol != 0);
    robot.turn('l');
-   ASSERT_EQ(robot.get(2,1), PSYM);
+   ASSERT_EQ(robot.get(2,1), PSYM) << "Player position: "
+                                   << robot.playerRow << ", "
+                                   << robot.playerCol;
    robot.turn('h');
    robot.turn('L');
-   ASSERT_EQ(robot.get(2,2), PSYM);
+   ASSERT_EQ(robot.get(2,2), PSYM) << "Player position: "
+                                   << robot.playerRow << ", "
+                                   << robot.playerCol;
+}
 
+//Tests the turn method with an input of down right
+TEST_F(RobotsTest, TESTTURNDOWNRIGHT) {
    //Moving down and right
    do {
        robot.init_board(0);
    } while(robot.playerRow != 2 || robot.playerCol != 0);
    robot.turn('n');
-   ASSERT_EQ(robot.get(3,1), PSYM);
+   ASSERT_EQ(robot.get(3,1), PSYM) << "Player position: "
+                                   << robot.playerRow << ", "
+                                   << robot.playerCol;
    robot.turn('y');
    robot.turn('N');
-   ASSERT_EQ(robot.get(4,2), PSYM);
+   ASSERT_EQ(robot.get(4,2), PSYM) << "Player position: "
+                                   << robot.playerRow << ", "
+                                   << robot.playerCol;
+}
 
+//Tests the turn method with an input of down
+TEST_F(RobotsTest, TESTTURNDOWN) {
    //Moving down
    do {
        robot.init_board(0);
    } while(robot.playerRow != 0 || robot.playerCol != 2);
    robot.turn('j');
-   ASSERT_EQ(robot.get(1,2), PSYM);
+   ASSERT_EQ(robot.get(1,2), PSYM) << "Player position: "
+                                   << robot.playerRow << ", "
+                                   << robot.playerCol;
    robot.turn('J');
-   ASSERT_EQ(robot.get(4,2), PSYM);
+   ASSERT_EQ(robot.get(4,2), PSYM) << "Player position: "
+                                   << robot.playerRow << ", "
+                                   << robot.playerCol;
+}
 
+//Tests the turn method with an input of down left
+TEST_F(RobotsTest, TESTTURNDOWNLEFT) {
    //Moving down and left
    do {
        robot.init_board(0);
    } while(robot.playerRow != 2 || robot.playerCol != 2);
    robot.turn('b');
-   ASSERT_EQ(robot.get(3,1), PSYM);
+   ASSERT_EQ(robot.get(3,1), PSYM) << "Player position: "
+                                   << robot.playerRow << ", "
+                                   << robot.playerCol;
    robot.turn('u');
    robot.turn('B');
-   ASSERT_EQ(robot.get(4,0), PSYM);
+   ASSERT_EQ(robot.get(4,0), PSYM) << "Player position: "
+                                   << robot.playerRow << ", "
+                                   << robot.playerCol;
+}
 
+//Tests the turn method with an input of left
+TEST_F(RobotsTest, TESTTURNLEFT) {
    //Moving left
    do {
        robot.init_board(0);
    } while(robot.playerRow != 2 || robot.playerCol != 2);
    robot.turn('h');
-   ASSERT_EQ(robot.get(2,1), PSYM);
+   ASSERT_EQ(robot.get(2,1), PSYM) << "Player position: "
+                                   << robot.playerRow << ", "
+                                   << robot.playerCol;
    robot.turn('l');
    robot.turn('H');
-   ASSERT_EQ(robot.get(2,0), PSYM);
+   ASSERT_EQ(robot.get(2,0), PSYM) << "Player position: "
+                                   << robot.playerRow << ", "
+                                   << robot.playerCol;
+}
 
+//Tests the turn method with an input of up left
+TEST_F(RobotsTest, TESTTURNUPLEFT) {
    //Moving up and left
    do {
        robot.init_board(0);
    } while(robot.playerRow != 2 || robot.playerCol != 2);
    robot.turn('y');
-   ASSERT_EQ(robot.get(1,1), PSYM);
+   ASSERT_EQ(robot.get(1,1), PSYM) << "Player position: "
+                                   << robot.playerRow << ", "
+                                   << robot.playerCol;
    robot.turn('n');
    robot.turn('Y');
-   ASSERT_EQ(robot.get(0,0), PSYM);
+   ASSERT_EQ(robot.get(0,0), PSYM) << "Player position: "
+                                   << robot.playerRow << ", "
+                                   << robot.playerCol;
+}
 
-
-
+//Tests the teleport method
+TEST_F(RobotsTest, TESTTURNTELEPORT) {
    robot.init_board(5);
-   firstRow = robot.playerRow;
-   firstCol = robot.playerCol;
+   int firstRow = robot.playerRow;
+   int firstCol = robot.playerCol;
    robot.turn('t');
-   ASSERT_NE(firstRow, robot.playerRow);
-   ASSERT_NE(firstCol, robot.playerCol);
+   ASSERT_TRUE(firstRow != robot.playerRow || firstCol != robot.playerCol);
 
    robot.init_board(14);
    firstRow = robot.playerRow;
    firstCol = robot.playerCol;
    robot.turn('t');
-   ASSERT_EQ(firstRow, robot.playerRow);
-   ASSERT_EQ(firstCol, robot.playerCol);
+   ASSERT_TRUE(firstRow != robot.playerRow || firstCol != robot.playerCol);
+}
+
+//Tests the ability of the robots to collide with themselves,
+//heaps, and players
+TEST_F(RobotsTest, TESTCOLLISIONS) {
+    robot.init_board(14);
+    robot.turn('.');
+    int heaps = 0;
+    int losses = 0;
+    for(int i = 0; i < ROWS; i++) {
+        for(int j = 0; j < COLS; j++) {
+            if(robot.get(i,j) == TSYM) {
+                heaps++;
+            } if (robot.get(i,j) == LSYM) {
+                losses++;
+            }
+        }
+    }
+    ASSERT_GT(heaps, 0) << "No heaps added to world";
+    ASSERT_EQ(losses, 1) << "User collision not detected";
 }
 
 /*TEST_F(RobotsTest, TESTSINGLEMOVE) {
     //void robot_move(int r, int c, int direction);
     do {
         robot.init_board(0);
-    } while(robot.playerRow != 0 || robot.playerCol != 0 || robot.get(1,0) != ' ');
+    } while(robot.playerRow != 0 ||
+            robot.playerCol != 0 || robot.get(1,0) != ' ');
     ASSERT_TRUE(robot.add(RSYM,2,0));
     robot.single_move(2,0,1);
     ASSERT_EQ(robot.get(1,0), RSYM) << "Robot didn't move right";
@@ -401,6 +484,22 @@ TEST_F(RobotsTest, TESTTURN) {
     ASSERT_FALSE(robot.draw());
 }*/
 
+//Tests the clear method
+TEST_F(RobotsTest, TESTCLEAR) {
+    robot.init_board(5);
+    robot.clear();
+    int bots = 0;
+    for(int i = 0; i < ROWS; i++) {
+        for(int j = 0; j < COLS; j++) {
+            if(robot.get(i,j) == RSYM) {
+                bots++;
+            }
+        }
+    }
+    ASSERT_EQ(bots, 0) << "Bots still in world";
+}
+
+//Tests the won method
 TEST_F(RobotsTest, TESTWON) {
     //bool won();
     robot.init_board(0);
@@ -415,15 +514,16 @@ TEST_F(RobotsTest, TESTWON) {
     ASSERT_FALSE(robot.won());
 }
 
+//Tests the lost method
 TEST_F(RobotsTest, TESTLOST) {
     //bool lost();
     ASSERT_FALSE(robot.lost());
     do {
-        robot.init_board(5);
+        robot.init_board(0);
     } while(robot.playerRow != 0 || robot.playerCol != 0);
     ASSERT_TRUE(robot.add(RSYM,1,0));
     robot.turn('.');
-    ASSERT_TRUE(robot.lost());
+    ASSERT_TRUE(robot.lost()) << robot.get(0,0) << ", " << robot.get(1,0);
 }
 
 
