@@ -5,10 +5,11 @@
 #define COLS 8
 #define startLength 4
 //#define headChar @
-#define bodyChar 0
+//#define bodyChar 0
 
 #include "iostream"
 #include "string"
+#include "vector"
 
 class Worm
 {
@@ -23,7 +24,7 @@ public:
     bool add(char obj, int r, int c);
     void remove(int r, int c);
     char get(int r, int c);
-    bool move(int direction, int distance);
+    bool move(int dir, int distance);
     void defineDirection();
 
 
@@ -34,22 +35,30 @@ public:
     //Varialbes
     char gameboard[ROWS][COLS];
 
+    struct bodyPiece{
+        int rowPos;
+        int colPos;
+    };
+
     bool alive = true;
 
     int length = 1;
 
     char headChar = '@';
+    char bodyChar = '0';
     int headLocation[2];//row,col of head loaction
-    int bodyPieces[1][2];//[each body peice][Row,Col of body]
+    std::vector<bodyPiece> bodyPieces;//[each body peice]
 
 private:
         int direction;//N:0, E:1, S:2, W:3
-        int dVector[2];//The direction vector
+        int dVector[2];//The direction vector, [row, col]
         void bodyMove();
         bool addToBody();
         void makeBody();
 
 
 };
+
+
 
 #endif // WORM_H

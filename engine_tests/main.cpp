@@ -1,8 +1,8 @@
 #include "iostream"
 #include "gtest/gtest.h"
-#include "../engines/robots.h"
+//#include "../engines/robots.h"
 #include "../engines/worm.h"
-
+/*
 class RobotsTest : public ::testing::Test {
     protected:
         Robots robot;
@@ -13,7 +13,7 @@ class RobotsTest : public ::testing::Test {
         virtual ~RobotsTest() {
           // You can do clean-up work that doesn't throw exceptions here.
         }
-};
+};*/
 
 class WormTest : public ::testing::Test {
     protected:
@@ -26,6 +26,7 @@ class WormTest : public ::testing::Test {
           // You can do clean-up work that doesn't throw exceptions here.
         }
 };
+/*
 
 //Tests the add and get methods
 TEST_F(RobotsTest, TESTADDGET) {
@@ -485,6 +486,7 @@ TEST_F(RobotsTest, TESTCOLLISIONS) {
     ASSERT_FALSE(robot.draw());
 }*/
 
+/*
 //Tests the clear method
 TEST_F(RobotsTest, TESTCLEAR) {
     robot.init_board(5);
@@ -528,7 +530,7 @@ TEST_F(RobotsTest, TESTLOST) {
 }
 
 
-
+*/
 
 
 TEST_F(WormTest, TESTSIMPLE) {
@@ -552,8 +554,20 @@ TEST_F(WormTest, ADDWORMTEST)
     worm.init();
     EXPECT_EQ('@', worm.get(5,4));
     EXPECT_EQ('0', worm.get(5,3));
-    EXPECT_EQ('0', worm.get(6,4));
-    EXPECT_EQ('0', worm.get(4,4));
+    EXPECT_EQ('0', worm.get(5,2));
+    EXPECT_EQ('0', worm.get(5,1));
+    EXPECT_EQ('0', worm.get(5,0));
+}
+
+TEST_F(WormTest, MOVEWORMTEST)
+{
+    worm.init();
+    EXPECT_TRUE(worm.move(1, 1));
+    EXPECT_EQ('@', worm.get(5,5));
+    EXPECT_EQ('0', worm.get(5,3));
+    EXPECT_EQ('0', worm.get(5,2));
+    EXPECT_EQ('0', worm.get(5,1));
+    EXPECT_EQ(' ', worm.get(5,0));
 }
 
 int main(int argc, char **argv) {
