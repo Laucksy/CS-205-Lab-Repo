@@ -17,6 +17,7 @@ class RobotsTest : public ::testing::Test {
 
 class WormTest : public ::testing::Test {
     protected:
+        Worm worm;
         WormTest() {
           // You can do set-up work for each test here.
         }
@@ -26,6 +27,7 @@ class WormTest : public ::testing::Test {
         }
 };
 
+/*
 TEST_F(RobotsTest, TESTADDGET) {
     //void add(char obj, int r, int c);
     //char get(int r, int c);
@@ -217,6 +219,7 @@ TEST_F(RobotsTest, TESTTURN) {
    ASSERT_EQ(firstRow, robot.playerRow);
    ASSERT_EQ(firstCol, robot.playerCol);
 }
+*/
 
 /*TEST_F(RobotsTest, TESTSINGLEMOVE) {
     //void robot_move(int r, int c, int direction);
@@ -401,6 +404,8 @@ TEST_F(RobotsTest, TESTTURN) {
     ASSERT_FALSE(robot.draw());
 }*/
 
+
+/*
 TEST_F(RobotsTest, TESTWON) {
     //bool won();
     robot.init_board(0);
@@ -427,26 +432,33 @@ TEST_F(RobotsTest, TESTLOST) {
 }
 
 
+*/
 
 
-
-/*TEST_F(WormTest, TESTSIMPLE) {
+TEST_F(WormTest, TESTSIMPLE) {
 }
 
 TEST_F(WormTest, ADDTEST)
 {
-    Worm game1();
-    ASSERT_TRUE(game1.add('a',5,5));
-    ASSERT_TRUE(game1.add('b', 6,7));
-    ASSERT_FALSE(game1.add('d',5,5));
+    ASSERT_TRUE(worm.add('a',5,5));
+    ASSERT_TRUE(worm.add('b', 6,7));
+    ASSERT_FALSE(worm.add('d',5,5));
 }
 
 TEST_F(WormTest, GETTEST)
 {
-    Worm game1();
-    ASSERT_TRUE(game1.add('k',5,5));
-    ASSERT_EQ('k', game1.get(5,5));
-}*/
+    ASSERT_TRUE(worm.add('k',5,5));
+    ASSERT_EQ('k', worm.get(5,5));
+}
+
+TEST_F(WormTest, ADDWORMTEST)
+{
+    worm.init();
+    EXPECT_EQ('@', worm.get(5,4));
+    EXPECT_EQ('0', worm.get(5,3));
+    EXPECT_EQ('0', worm.get(6,4));
+    EXPECT_EQ('0', worm.get(4,4));
+}
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);

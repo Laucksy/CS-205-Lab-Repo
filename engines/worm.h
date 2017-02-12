@@ -1,22 +1,31 @@
 #ifndef WORM_H
 #define WORM_H
 
-#define ROWS 5
-#define COLS 3
+#define ROWS 10
+#define COLS 8
+#define startLength 4
+//#define headChar @
+#define bodyChar 0
 
-
+#include "iostream"
+#include "string"
 
 class Worm
 {
 public:
     Worm();
+    Worm(Worm &obj);
+    ~Worm();
+    void operator=(Worm &obj);
+    void init();
 
     //Methods
     bool add(char obj, int r, int c);
+    void remove(int r, int c);
     char get(int r, int c);
-    void action(char input);
-    void move(int direction, int distance);
-    void bodyMove();
+    bool move(int direction, int distance);
+    void defineDirection();
+
 
     bool won();
     bool lost();
@@ -27,15 +36,18 @@ public:
 
     bool alive = true;
 
-    int length = 7;
+    int length = 1;
+
     char headChar = '@';
-    char bodyChar = '0';
-
     int headLocation[2];//row,col of head loaction
-    int bodyPiece[2];
-    int bodyChain[7];
+    int bodyPieces[1][2];//[each body peice][Row,Col of body]
 
-
+private:
+        int direction;//N:0, E:1, S:2, W:3
+        int dVector[2];//The direction vector
+        void bodyMove();
+        bool addToBody();
+        void makeBody();
 
 
 };
