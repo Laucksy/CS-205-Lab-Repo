@@ -17,6 +17,7 @@ class RobotsTest : public ::testing::Test {
 
 class WormTest : public ::testing::Test {
     protected:
+        Worm worm;
         WormTest() {
           // You can do set-up work for each test here.
         }
@@ -530,23 +531,30 @@ TEST_F(RobotsTest, TESTLOST) {
 
 
 
-/*TEST_F(WormTest, TESTSIMPLE) {
+TEST_F(WormTest, TESTSIMPLE) {
 }
 
 TEST_F(WormTest, ADDTEST)
 {
-    Worm game1();
-    ASSERT_TRUE(game1.add('a',5,5));
-    ASSERT_TRUE(game1.add('b', 6,7));
-    ASSERT_FALSE(game1.add('d',5,5));
+    ASSERT_TRUE(worm.add('a',5,5));
+    ASSERT_TRUE(worm.add('b', 6,7));
+    ASSERT_FALSE(worm.add('d',5,5));
 }
 
 TEST_F(WormTest, GETTEST)
 {
-    Worm game1();
-    ASSERT_TRUE(game1.add('k',5,5));
-    ASSERT_EQ('k', game1.get(5,5));
-}*/
+    ASSERT_TRUE(worm.add('k',5,5));
+    ASSERT_EQ('k', worm.get(5,5));
+}
+
+TEST_F(WormTest, ADDWORMTEST)
+{
+    worm.init();
+    EXPECT_EQ('@', worm.get(5,4));
+    EXPECT_EQ('0', worm.get(5,3));
+    EXPECT_EQ('0', worm.get(6,4));
+    EXPECT_EQ('0', worm.get(4,4));
+}
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
