@@ -1,4 +1,5 @@
 #include "robots.h"
+using namespace std;
 
 /* Default constructor
  */
@@ -9,13 +10,26 @@ Robots::Robots() {
     score = 0;
 }
 
+Robots::Robots(int r, int c) : Engine::Engine(r, c) {
+    playerRow = -1;
+    playerCol = -1;
+    mode = 0;
+    score = 0;
+}
+
 /* Copy constructor
  * @param obj - Item to copy
  */
 Robots::Robots(Robots &obj) {
-    for(int i = 0; i < ROWS; i++) {
-        for(int j = 0; j < COLS; j++) {
-            gameboard[i][j] = obj.gameboard[i][j];
+    rows = obj.rows;
+    cols = obj.cols;
+    if(gameboard != NULL) {
+        for(int i = 0; i < rows; i++) {
+            if(gameboard[i] != NULL) {
+                for(int j = 0; j < cols; j++) {
+                    gameboard[i][j] = obj.gameboard[i][j];
+                }
+            }
         }
     }
     playerRow = obj.playerRow;
@@ -34,40 +48,19 @@ Robots::~Robots() {
  * @param obj - object to copy
  */
 void Robots::operator=(Robots &obj) {
-    for(int i = 0; i < ROWS; i++) {
-        for(int j = 0; j < COLS; j++) {
-            gameboard[i][j] = obj.gameboard[i][j];
+    if(gameboard != NULL) {
+        for(int i = 0; i < rows; i++) {
+            if(gameboard[i] != NULL) {
+                for(int j = 0; j < cols; j++) {
+                    gameboard[i][j] = obj.gameboard[i][j];
+                }
+            }
         }
     }
     playerRow = obj.playerRow;
     playerCol = obj.playerCol;
     mode = obj.mode;
     score = obj.score;
-}
-
-/* Adds object to board if space isn't already taken
- * @param obj - item to add to board
- * @param r - row to add to
- * @param c - column to add to
- * @return - true if successfully added, false if space already taken
- */
-bool Robots::add(char obj, int r, int c) {
-    if(r >= ROWS || c >= COLS) {return false;}
-    if(gameboard[r][c] == ' ') {
-        gameboard[r][c] = obj;
-        return true;
-    }
-    return false;
-}
-
-/* Retrieves item at given cell
- * @param r - row to retrieve from
- * @param c - column to retrieve from
- * @return - char at given location
- */
-char Robots::get(int r, int c) {
-    if(r >= ROWS || c >= COLS) {return 'x';}
-    return gameboard[r][c];
 }
 
 /* Returns score for the player
@@ -81,20 +74,24 @@ int Robots::getScore() {
  * @param numBots - how many bots to add to board
  */
 void Robots::init_board(int numBots) {
-    for(int i = 0; i < ROWS; i++) {
-        for(int j = 0; j < COLS; j++) {
-            gameboard[i][j] = ' '; //Makes all cells blank
+    if(gameboard != NULL) {
+        for(int i = 0; i < rows; i++) {
+            if(gameboard[i] != NULL) {
+                for(int j = 0; j < cols; j++) {
+                    gameboard[i][j] = ' '; //Makes all cells blank
+                }
+            }
         }
     }
     mode = 0;
-    playerRow = rand() % ROWS;
-    playerCol = rand() % COLS;
+    playerRow = rand() % rows;
+    playerCol = rand() % cols;
     add(PSYM,playerRow,playerCol); //Puts player in random space
     for(int i = 0; i < numBots; i++) {
         bool placed = false;
         while(!placed) {
-            int row = rand() % ROWS;
-            int col = rand() % COLS;
+            int row = rand() % rows;
+            int col = rand() % cols;
             placed = add(RSYM,row,col); //Randomly places bots in open spaces
         }
     }
@@ -119,14 +116,17 @@ bool Robots::turn(char input) {
     if(input == 'w' || input == '.' || input == ' ') {
         mode = 2; //Sets up wait until die
     }
-    char nextBoard[ROWS][COLS]; //Makes second board to transfer new moves to
-    for(int i = 0; i < ROWS; i++) {
-        for(int j = 0; j < COLS; j++) {
+
+    char** nextBoard = new char*[rows]; //Makes second board to transfer new moves to
+    for(int i = 0; i < rows; i++)
+        nextBoard[i] = new char[cols];
+    for(int i = 0; i < rows; i++) {
+        for(int j = 0; j < cols; j++) {
             nextBoard[i][j] = ' '; //Makes new board empty
         }
     }
-    for(int i = 0; i < ROWS; i++) {
-        for(int j = 0; j < COLS; j++) {
+    for(int i = 0; i < rows; i++) {
+        for(int j = 0; j < cols; j++) {
             if(get(i,j) == RSYM) { //Moves all robots first
                 if(i - playerRow > 0 && j == playerCol) {
                     single_move(nextBoard,RSYM,i,j,1); //Moves up
@@ -203,9 +203,13 @@ bool Robots::turn(char input) {
             mode = 0; //Go back to normal mode
         }
     }
-    for(int i = 0; i < ROWS; i++) {
-        for(int j = 0; j < COLS; j++) {
-            gameboard[i][j] = nextBoard[i][j]; //Copy new board to old one
+    if(gameboard != NULL) {
+        for(int i = 0; i < rows; i++) {
+            if(gameboard[i] != NULL) {
+                for(int j = 0; j < cols; j++) {
+                    gameboard[i][j] = nextBoard[i][j]; //Copy new board to old one
+                }
+            }
         }
     }
     if(mode == 1) { //Call again on > mode
@@ -224,7 +228,7 @@ bool Robots::turn(char input) {
  * @param direction - the numerical direction to move
  * @return boolean whether the move was successfull or not
  */
-bool Robots::single_move(char nextBoard[ROWS][COLS], char type,
+bool Robots::single_move(char** nextBoard, char type,
                          int r, int c, int direction) {
     int rShift = 0; //Vertical shift from the current cell
     int cShift = 0; //Horizontal shift from the current cell
@@ -253,8 +257,8 @@ bool Robots::single_move(char nextBoard[ROWS][COLS], char type,
         rShift = -1;
         cShift = -1;
     }
-    if((r + rShift) >= ROWS || (r + rShift) < 0 ||
-            (c + cShift) >= COLS || (c + cShift) < 0) {
+    if((r + rShift) >= rows || (r + rShift) < 0 ||
+            (c + cShift) >= cols || (c + cShift) < 0) {
         return false; //Can't move to invalid space
     } else if(type == RSYM) { //Moving a robot
         if(nextBoard[r+rShift][c+cShift] == RSYM) {
@@ -288,7 +292,7 @@ bool Robots::single_move(char nextBoard[ROWS][COLS], char type,
  * @param direction - the numerical direction to move
  * @param distance - the distance to move
  */
-bool Robots::move(char nextBoard[ROWS][COLS], int direction, int distance) {
+bool Robots::move(char** nextBoard, int direction, int distance) {
     if(distance == 1) {
         return single_move(nextBoard,PSYM,playerRow,playerCol,direction);
     } else {
@@ -300,18 +304,22 @@ bool Robots::move(char nextBoard[ROWS][COLS], int direction, int distance) {
 /* Teleports the player to a random location
  */
 void Robots::teleport() {
-    int newRow = rand() % ROWS;
-    int newCol = rand() % COLS;
-    if(gameboard[newRow][newCol] != ' ') { //Player dies
-        gameboard[newRow][newCol] = LSYM;
-        gameboard[playerRow][playerCol] = ' ';
-        playerRow = newRow;
-        playerCol = newCol;
-    } else { //Player successfully moves
-        gameboard[newRow][newCol] = PSYM;
-        gameboard[playerRow][playerCol] = ' ';
-        playerRow = newRow;
-        playerCol = newCol;
+    int newRow = rand() % rows;
+    int newCol = rand() % cols;
+    if(gameboard != NULL && gameboard[newRow] != NULL &&
+            gameboard[newRow][newCol] != NULL && gameboard[playerRow]
+            != NULL && gameboard[playerRow][playerCol]) {
+        if(gameboard[newRow][newCol] != ' ') { //Player dies
+            gameboard[newRow][newCol] = LSYM;
+            gameboard[playerRow][playerCol] = ' ';
+            playerRow = newRow;
+            playerCol = newCol;
+        } else { //Player successfully moves
+            gameboard[newRow][newCol] = PSYM;
+            gameboard[playerRow][playerCol] = ' ';
+            playerRow = newRow;
+            playerCol = newCol;
+        }
     }
 }
 
@@ -324,9 +332,13 @@ void Robots::teleport() {
 /* Clears gameboard
  */
 void Robots::clear() {
-    for(int i = 0; i < ROWS; i++) {
-        for(int j = 0; j < COLS; j++) {
-            gameboard[i][j] = ' ';
+    if(gameboard != NULL) {
+        for(int i = 0; i < rows; i++) {
+            if(gameboard[i] != NULL) {
+                for(int j = 0; j < cols; j++) {
+                    gameboard[i][j] = ' ';
+                }
+            }
         }
     }
     mode = 0;
@@ -339,8 +351,8 @@ bool Robots::won() {
     int bots = 0;
     int heaps = 0;
     int losses = 0;
-    for(int i = 0; i < ROWS; i++) {
-        for(int j = 0; j < COLS; j++) {
+    for(int i = 0; i < rows; i++) {
+        for(int j = 0; j < cols; j++) {
             if(get(i,j) == RSYM) {
                 bots++; //Counts bots
             } else if(get(i,j) == TSYM) {
@@ -358,8 +370,8 @@ bool Robots::won() {
  */
 bool Robots::lost() {
     bool found = false;
-    for(int i = 0; i < ROWS; i++) {
-        for(int j = 0; j < COLS; j++) {
+    for(int i = 0; i < rows; i++) {
+        for(int j = 0; j < cols; j++) {
             if(get(i,j) == LSYM) {
                 found = true;
             }

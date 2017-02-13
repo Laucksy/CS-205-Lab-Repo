@@ -16,6 +16,9 @@ INCLUDEPATH +=  ../gtest                                   \
                 ../gtest/googletest/include/gtest          \
                 ../gtest/googletest/include/gtest/gtest.h
 
+HEADERS += ../engines/engine.h
+SOURCES += ../engines/engine.cpp
+
 HEADERS += ../engines/robots.h
 SOURCES += ../engines/robots.cpp
 

@@ -1,21 +1,21 @@
 #ifndef WORM_H
 #define WORM_H
 
-#define ROWSW 10
-#define COLSW 8
 #define startLength 4
 //#define headChar @
 //#define bodyChar 0
 
+#include "engine.h"
 #include "iostream"
 #include "string"
 #include "vector"
 #include "random"
 
-class Worm
+class Worm : public Engine
 {
 public:
     Worm();//Deafult constructor
+    Worm(int r, int c);
     Worm(Worm &obj);//Copy Constructor
     ~Worm();//Dispose Constructor
     void operator=(Worm &obj);
@@ -28,12 +28,8 @@ public:
 
     //These should be private, but are used by test methods
     void addFruit();        //Generates a fruit at a random spot
-    char get(int r, int c);           //returns the char in the gameboard
-     bool add(char obj, int r, int c); //Adds a char to specified position
-                                        //in the gameboard
 
     //Varialbes
-    char gameboard[ROWSW][COLSW]; //Char array that contains all the peices
     bool alive = true;      //Tells if the snake is alive or dead
     int length = 1;         //The length of the snake, equivilant to score
 
@@ -41,12 +37,6 @@ public:
 
 private:
     //Methods
-    //   gamebord Methods
-
-    void remove(int r, int c); //removes the char in the gameboard
-                                //and replaces it with ' '
-
-
     //   worm Methods
     void defineDirection(); //Turns one digit direction value
                                 //into a row and col number

@@ -1,28 +1,26 @@
 #ifndef ROBOTS_H
 #define ROBOTS_H
-#define ROWS 5
-#define COLS 3
 #define PSYM '@' //Player's symbol
 #define RSYM '+' //Robots' symbol
 #define TSYM '*' //Trash piles' symbol
 #define LSYM 'L' //Symbol shown when player is eaten
                  //(makes lose() easy to implement)
+#include "engine.h"
 #include "iostream"
 #include "string"
 
-class Robots
+class Robots : public Engine
 {
     public:
         //Constructors
         Robots();
+        Robots(int r, int c);
         Robots(Robots &obj);
         ~Robots();
         void operator=(Robots &obj);
 
         //Methods
         //Gets and Sets
-        bool add(char obj, int r, int c);
-        char get(int r, int c);
         int getScore();
 
         //Gameflow
@@ -44,15 +42,14 @@ class Robots
     private:
         //Methods
         //Movements
-        bool single_move(char nextBoard[ROWS][COLS],
+        bool single_move(char** nextBoard,
                            char type, int r, int c, int direction);
-        bool move(char nextBoard[ROWS][COLS], int direction, int distance);
+        bool move(char** nextBoard, int direction, int distance);
         void teleport();
         //void quit();
         //bool draw();
 
         //Variables
-        char gameboard[ROWS][COLS];
         int score;
 };
 

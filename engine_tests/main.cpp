@@ -1,5 +1,6 @@
 #include "iostream"
 #include "gtest/gtest.h"
+#include "../engines/engine.h"
 #include "../engines/robots.h"
 #include "../engines/worm.h"
 
@@ -45,8 +46,8 @@ TEST_F(RobotsTest, TESTINITBOARD) {
     robot.init_board(5);
     ASSERT_EQ(robot.get(robot.playerRow,robot.playerCol), PSYM);
     int bots = 0;
-    for(int i = 0; i < ROWS; i++) {
-        for(int j = 0; j < COLS; j++) {
+    for(int i = 0; i < robot.getRows(); i++) {
+        for(int j = 0; j < robot.getCols(); j++) {
             if(robot.get(i,j) == RSYM) {
                 bots++;
             }
@@ -61,16 +62,16 @@ TEST_F(RobotsTest, TESTTURNPERIOD) {
 
     robot.init_board(5);
     robot.mode = 1;
-    char first[ROWS][COLS];
-    for(int i = 0; i < ROWS; i++) {
-        for(int j = 0; j < COLS; j++) {
+    char first[robot.getRows()][robot.getCols()];
+    for(int i = 0; i < robot.getRows(); i++) {
+        for(int j = 0; j < robot.getCols(); j++) {
             first[i][j] = robot.get(i,j);
         }
     }
     robot.turn('.');
     int diffs = 0;
-    for(int i = 0; i < ROWS; i++) {
-        for(int j = 0; j < COLS; j++) {
+    for(int i = 0; i < robot.getRows(); i++) {
+        for(int j = 0; j < robot.getCols(); j++) {
             if(first[i][j] != robot.get(i,j)) {
                 diffs++;
             }
@@ -84,16 +85,16 @@ TEST_F(RobotsTest, TESTTURNGT) {
     robot.init_board(1);
     int firstRow = robot.playerRow;
     int firstCol = robot.playerCol;
-    char first[ROWS][COLS];
-    for(int i = 0; i < ROWS; i++) {
-        for(int j = 0; j < COLS; j++) {
+    char first[robot.getRows()][robot.getCols()];
+    for(int i = 0; i < robot.getRows(); i++) {
+        for(int j = 0; j < robot.getCols(); j++) {
             first[i][j] = robot.get(i,j);
         }
     }
     robot.turn('>');
     int diffs = 0;
-    for(int i = 0; i < ROWS; i++) {
-        for(int j = 0; j < COLS; j++) {
+    for(int i = 0; i < robot.getRows(); i++) {
+        for(int j = 0; j < robot.getCols(); j++) {
             if(first[i][j] != robot.get(i,j)) {
                 diffs++;
             }
@@ -111,16 +112,16 @@ TEST_F(RobotsTest, TESTTURNW) {
    robot.init_board(5);
    int firstRow = robot.playerRow;
    int firstCol = robot.playerCol;
-   char first[ROWS][COLS];
-   for(int i = 0; i < ROWS; i++) {
-       for(int j = 0; j < COLS; j++) {
+   char first[robot.getRows()][robot.getCols()];
+   for(int i = 0; i < robot.getRows(); i++) {
+       for(int j = 0; j < robot.getCols(); j++) {
            first[i][j] = robot.get(i,j);
        }
    }
    robot.turn('w');
    int diffs = 0;
-   for(int i = 0; i < ROWS; i++) {
-       for(int j = 0; j < COLS; j++) {
+   for(int i = 0; i < robot.getRows(); i++) {
+       for(int j = 0; j < robot.getCols(); j++) {
            if(first[i][j] != robot.get(i,j)) {
                diffs++;
            }
@@ -288,8 +289,8 @@ TEST_F(RobotsTest, TESTCOLLISIONS) {
     robot.turn('.');
     int heaps = 0;
     int losses = 0;
-    for(int i = 0; i < ROWS; i++) {
-        for(int j = 0; j < COLS; j++) {
+    for(int i = 0; i < robot.getRows(); i++) {
+        for(int j = 0; j < robot.getCols(); j++) {
             if(robot.get(i,j) == TSYM) {
                 heaps++;
             } if (robot.get(i,j) == LSYM) {
@@ -338,16 +339,16 @@ TEST_F(RobotsTest, TESTCOLLISIONS) {
     robot.init_board(5);
     int firstRow = robot.playerRow;
     int firstCol = robot.playerCol;
-    char first[ROWS][COLS];
-    for(int i = 0; i < ROWS; i++) {
-        for(int j = 0; j < COLS; j++) {
+    char first[rows][cols];
+    for(int i = 0; i < rows; i++) {
+        for(int j = 0; j < cols; j++) {
             first[i][j] = robot.get(i,j);
         }
     }
     robot.action('>');
     int diffs = 0;
-    for(int i = 0; i < ROWS; i++) {
-        for(int j = 0; j < COLS; j++) {
+    for(int i = 0; i < rows; i++) {
+        for(int j = 0; j < cols; j++) {
             if(first[i][j] != robot.get(i,j)) {
                 diffs++;
             }
@@ -361,16 +362,16 @@ TEST_F(RobotsTest, TESTCOLLISIONS) {
    robot.init_board(5);
    firstRow = robot.playerRow;
    firstCol = robot.playerCol;
-   //first[ROWS][COLS];
-   for(int i = 0; i < ROWS; i++) {
-       for(int j = 0; j < COLS; j++) {
+   //first[rows][cols];
+   for(int i = 0; i < rows; i++) {
+       for(int j = 0; j < cols; j++) {
            first[i][j] = robot.get(i,j);
        }
    }
    robot.action('w');
    diffs = 0;
-   for(int i = 0; i < ROWS; i++) {
-       for(int j = 0; j < COLS; j++) {
+   for(int i = 0; i < rows; i++) {
+       for(int j = 0; j < cols; j++) {
            if(first[i][j] != robot.get(i,j)) {
                diffs++;
            }
@@ -491,8 +492,8 @@ TEST_F(RobotsTest, TESTCLEAR) {
     robot.init_board(5);
     robot.clear();
     int bots = 0;
-    for(int i = 0; i < ROWS; i++) {
-        for(int j = 0; j < COLS; j++) {
+    for(int i = 0; i < rows; i++) {
+        for(int j = 0; j < cols; j++) {
             if(robot.get(i,j) == RSYM) {
                 bots++;
             }

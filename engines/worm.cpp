@@ -4,18 +4,20 @@
 
 Worm::Worm()
 {
-    for(int i = 0; i < ROWSW; i++) {
-        for(int j = 0; j < COLSW; j++) {
-            gameboard[i][j] = ' '; //Makes all cells blank
-        }
-    }
+}
+
+Worm::Worm(int r, int c) : Engine::Engine(r, c)
+{
 }
 
 Worm::Worm(Worm &obj) {
-
-    for(int i = 0; i < ROWSW; i++) {
-        for(int j = 0; j < COLSW; j++) {
-            gameboard[i][j] = obj.gameboard[i][j];
+    if(gameboard != NULL) {
+        for(int i = 0; i < rows; i++) {
+            if(gameboard[i] != NULL) {
+                for(int j = 0; j < cols; j++) {
+                    gameboard[i][j] = obj.gameboard[i][j];
+                }
+            }
         }
     }
 
@@ -33,9 +35,13 @@ Worm::~Worm()
 }
 
 void Worm::operator=(Worm &obj) {
-    for(int i = 0; i < ROWSW; i++) {
-        for(int j = 0; j < COLSW; j++) {
-            gameboard[i][j] = obj.gameboard[i][j];
+    if(gameboard != NULL) {
+        for(int i = 0; i < rows; i++) {
+            if(gameboard[i] != NULL) {
+                for(int j = 0; j < cols; j++) {
+                    gameboard[i][j] = obj.gameboard[i][j];
+                }
+            }
         }
     }
 
@@ -50,8 +56,8 @@ void Worm::operator=(Worm &obj) {
 void Worm::init()
 {
     direction = 1;
-    headLocation[0] = ROWSW/2;//Maakes the y location of the body
-    headLocation[1] = COLSW/2;//makes the x location of the boyd
+    headLocation[0] = rows/2;//Maakes the y location of the body
+    headLocation[1] = cols/2;//makes the x location of the boyd
     //std::cout << dVector[0] << " DVECTORS  " << dVector[1] << "\n" ;
     add(headChar, headLocation[0], headLocation[1]);
     makeBody();
@@ -63,7 +69,8 @@ void Worm::makeBody()
     defineDirection();
     //add the first body peice first
 
-    if(gameboard[headLocation[0] - dVector[0]][headLocation[1] - dVector[1]]
+    if(gameboard[headLocation[0] - dVector[0]] != NULL &&
+       gameboard[headLocation[0] - dVector[0]][headLocation[1] - dVector[1]]
             != ' ')
     {
         std::cout <<"Couldnt add the first segment of the body";
@@ -92,12 +99,13 @@ bool Worm::addToBody()
         //<< " " << sizeof(bodyPieces);;
     int rowPosition = lastR - dVector[0]; //New target location of tail peice
     int colPosition = lastC - dVector[1];
-    if((rowPosition < ROWSW && rowPosition >=0 ) &&
-            (colPosition < COLSW && colPosition >= 0))
+    if((rowPosition < rows && rowPosition >=0 ) &&
+            (colPosition < cols && colPosition >= 0))
     {
         length += 1;
 
-        if(gameboard[lastR - dVector[0]][lastC - dVector[1]] != ' ')
+        if(gameboard[lastR - dVector[0]] != NULL &&
+                gameboard[lastR - dVector[0]][lastC - dVector[1]] != ' ')
         {
             std::cout <<"The tail peice could not be added";
             return false;
@@ -182,51 +190,14 @@ void Worm::addFruit()
     bool generated = false;
     while(!generated)
     {
-        int pRow = rand() % ROWSW;
-        int pCol = rand() % COLSW;
+        int pRow = rand() % rows;
+        int pCol = rand() % cols;
 
         if(add(foodChar, pRow, pCol))
         {
             generated = true;
         }
     }
-}
-
-/*
- * Returns the char at given location
- */
-char Worm::get(int r, int c)
-{
-    return gameboard[r][c];
-}
-
-/*
- * Adds the char in given location
- * If the space is occupied will return false
- */
-bool Worm::add(char obj, int r, int c)
-{
-    if((r < ROWSW && r >= 0 )&&(c < COLSW && c >= 0))
-    {
-        if(gameboard[r][c] != ' ')
-        {
-            std::cout << "There was already a peice here";
-            return false;
-        }else{
-            gameboard[r][c] = obj;
-            return true;
-        }
-    }
-    std::cout <<"This index is out of bounds";
-    return false;
-}
-
-/*
- * Removes the char in given space and replaces with ' '
- */
-void Worm::remove(int r, int c)
-{
-    gameboard[r][c] = ' ';
 }
 
 /*

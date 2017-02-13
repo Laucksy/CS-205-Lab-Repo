@@ -5,8 +5,10 @@ CONFIG -= qt
 
 SOURCES += main.cpp \
     worm.cpp \
-    robots.cpp
+    robots.cpp \
+    engine.cpp
 
 HEADERS += \
     worm.h \
-    robots.h
+    robots.h \
+    engine.h
