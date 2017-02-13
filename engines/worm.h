@@ -19,11 +19,13 @@ public:
     Worm(Worm &obj);//Copy Constructor
     ~Worm();//Dispose Constructor
     void operator=(Worm &obj);
-    void init();
+
 
     //Methods
-    bool move(int dir, int distance);//Makes the worm move in the direction given a distance
+    void init();                      //Initiate game
+    bool move(int dir, int distance); //Makes the worm move in the direction given a distance
 
+    //These should be private, but are used by test methods
     void addFruit();        //Generates a fruit at a random spot
     char get(int r, int c);           //returns the char in the gameboard
      bool add(char obj, int r, int c); //Adds a char to specified position in the gameboard

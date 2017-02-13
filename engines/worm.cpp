@@ -40,7 +40,6 @@ void Worm::init()
 
 void Worm::makeBody()
 {
-
     defineDirection();
     //add the first body peice first
 
