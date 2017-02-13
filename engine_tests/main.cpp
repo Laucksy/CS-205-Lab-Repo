@@ -1,8 +1,8 @@
 #include "iostream"
 #include "gtest/gtest.h"
-//#include "../engines/robots.h"
+#include "../engines/robots.h"
 #include "../engines/worm.h"
-/*
+
 class RobotsTest : public ::testing::Test {
     protected:
         Robots robot;
@@ -13,7 +13,7 @@ class RobotsTest : public ::testing::Test {
         virtual ~RobotsTest() {
           // You can do clean-up work that doesn't throw exceptions here.
         }
-};*/
+};
 
 class WormTest : public ::testing::Test {
     protected:
@@ -26,7 +26,6 @@ class WormTest : public ::testing::Test {
           // You can do clean-up work that doesn't throw exceptions here.
         }
 };
-/*
 
 //Tests the add and get methods
 TEST_F(RobotsTest, TESTADDGET) {

@@ -4,8 +4,8 @@
 
 Worm::Worm()
 {
-    for(int i = 0; i < ROWS; i++) {
-        for(int j = 0; j < COLS; j++) {
+    for(int i = 0; i < ROWSW; i++) {
+        for(int j = 0; j < COLSW; j++) {
             gameboard[i][j] = ' '; //Makes all cells blank
         }
     }
@@ -13,13 +13,18 @@ Worm::Worm()
 
 Worm::Worm(Worm &obj) {
 
-    gameboard = obj.gameboard;
+    for(int i = 0; i < ROWSW; i++) {
+        for(int j = 0; j < COLSW; j++) {
+            gameboard[i][j] = obj.gameboard[i][j];
+        }
+    }
 
-    headLocation = obj.headLocation;
+    for(int i = 0; i < 2; i++) {
+        headLocation[i] = obj.headLocation[i];
+    }
+
     length = obj.length;
     bodyPieces = obj.bodyPieces;
-    mode = obj.mode;
-    score = obj.score;
 }
 
 Worm::~Worm()
@@ -27,11 +32,26 @@ Worm::~Worm()
 
 }
 
+void Worm::operator=(Worm &obj) {
+    for(int i = 0; i < ROWSW; i++) {
+        for(int j = 0; j < COLSW; j++) {
+            gameboard[i][j] = obj.gameboard[i][j];
+        }
+    }
+
+    for(int i = 0; i < 2; i++) {
+        headLocation[i] = obj.headLocation[i];
+    }
+
+    length = obj.length;
+    bodyPieces = obj.bodyPieces;
+}
+
 void Worm::init()
 {
     direction = 1;
-    headLocation[0] = ROWS/2;//Maakes the y location of the body
-    headLocation[1] = COLS/2;//makes the x location of the boyd
+    headLocation[0] = ROWSW/2;//Maakes the y location of the body
+    headLocation[1] = COLSW/2;//makes the x location of the boyd
     //std::cout << dVector[0] << " DVECTORS  " << dVector[1] << "\n" ;
     add(headChar, headLocation[0], headLocation[1]);
     makeBody();
@@ -43,7 +63,8 @@ void Worm::makeBody()
     defineDirection();
     //add the first body peice first
 
-    if(gameboard[headLocation[0] - dVector[0]][headLocation[1] - dVector[1]] != ' ')
+    if(gameboard[headLocation[0] - dVector[0]][headLocation[1] - dVector[1]]
+            != ' ')
     {
         std::cout <<"Couldnt add the first segment of the body";
     }else{
@@ -67,10 +88,12 @@ bool Worm::addToBody()
     lastC = bodyPieces[length-1].colPos;//the collumn of the tail
 
 
-    //std::cout << "\n" << "lRow " << lastR << " lCol" << lastC << " " << sizeof(bodyPieces);;
+    //std::cout << "\n" << "lRow " << lastR << " lCol" << lastC
+        //<< " " << sizeof(bodyPieces);;
     int rowPosition = lastR - dVector[0]; //New target location of tail peice
     int colPosition = lastC - dVector[1];
-    if((rowPosition < ROWS && rowPosition >=0 ) && (colPosition < COLS && colPosition >= 0))
+    if((rowPosition < ROWSW && rowPosition >=0 ) &&
+            (colPosition < COLSW && colPosition >= 0))
     {
         length += 1;
 
@@ -79,10 +102,12 @@ bool Worm::addToBody()
             std::cout <<"The tail peice could not be added";
             return false;
         }else{
-            bodyPieces.push_back(bodyPiece()); //Adds a empty spot the the back of worm vector
-            bodyPieces[length-1].rowPos = rowPosition; // Sets the empty spot up
+            bodyPieces.push_back(bodyPiece()); //Adds a empty spot to
+                                                //the back of worm vector
+            bodyPieces[length-1].rowPos = rowPosition; //Sets empty spot up
             bodyPieces[length-1].colPos = colPosition;
-            add(bodyChar, bodyPieces[length-1].rowPos, bodyPieces[length-1].colPos);
+            add(bodyChar, bodyPieces[length-1].rowPos,
+                    bodyPieces[length-1].colPos);
             return true;
         }
     }
@@ -90,7 +115,8 @@ bool Worm::addToBody()
 
 }
 /*
- * Makes the worm move in the direction given. Based on the distance it will move more that many peices
+ * Makes the worm move in the direction given. Based on the distance it
+ * will move more that many peices
  * If there is a fruit in the way, the snake will eat it and grow by 1
  */
 bool Worm::move(int dir, int distance)
@@ -103,9 +129,11 @@ bool Worm::move(int dir, int distance)
     headLocation[1] += dVector[1];
 
     for(int x =0; x < distance; x++){
-        if(add(headChar, headLocation[0], headLocation[1])) // Is true when the head can move
+        if(add(headChar, headLocation[0], headLocation[1])) // Is true when
+                                                          //the head can move
         {
-            //Remove each peice from the gameboard, move each peice, add back to gameboard
+            //Remove each peice from the gameboard, move each peice, add
+                //back to gameboard
             for(auto peice : bodyPieces)
             {
                 remove(peice.rowPos, peice.colPos);
@@ -115,12 +143,15 @@ bool Worm::move(int dir, int distance)
             }
             return true;
         }else{
-            if(get(headLocation[0], headLocation[1]) == foodChar) //If where the head is going has a fruit
+            if(get(headLocation[0], headLocation[1]) == foodChar)
+                //If where the head is going has a fruit
             {
                 remove(headLocation[0], headLocation[1]); //Remove the fruit
-                add(headChar, headLocation[0], headLocation[1]); //Add the head to the position
+                add(headChar, headLocation[0], headLocation[1]);
+                    //Add the head to the position
 
-                //Remove each peice from the gameboard, move each peice, add back to gameboard
+                //Remove each peice from the gameboard, move each peice,
+                    //add back to gameboard
                 for(auto peice : bodyPieces)
                 {
                     remove(peice.rowPos, peice.colPos);
@@ -151,8 +182,8 @@ void Worm::addFruit()
     bool generated = false;
     while(!generated)
     {
-        int pRow = rand() % ROWS;
-        int pCol = rand() % COLS;
+        int pRow = rand() % ROWSW;
+        int pCol = rand() % COLSW;
 
         if(add(foodChar, pRow, pCol))
         {
@@ -175,7 +206,7 @@ char Worm::get(int r, int c)
  */
 bool Worm::add(char obj, int r, int c)
 {
-    if((r < ROWS && r >= 0 )&&(c < COLS && c >= 0))
+    if((r < ROWSW && r >= 0 )&&(c < COLSW && c >= 0))
     {
         if(gameboard[r][c] != ' ')
         {
@@ -199,7 +230,8 @@ void Worm::remove(int r, int c)
 }
 
 /*
- * Takes the direction int, and converts it to a vector value for easier movements
+ * Takes the direction int, and converts it to a vector value for
+ * easier movements
  */
 void Worm::defineDirection()
 {
