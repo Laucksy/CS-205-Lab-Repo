@@ -583,6 +583,7 @@ TEST_F(WormTest, SELFHITTEST)
 TEST_F(WormTest, GETFOODTEST)
 {
     worm.init();
+    worm.addFruit();
 
 
 }
