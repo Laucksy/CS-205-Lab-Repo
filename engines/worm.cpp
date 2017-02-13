@@ -111,19 +111,22 @@ bool Worm::move(int dir, int distance)
     headLocation[0] += dVector[0];
     headLocation[1] += dVector[1];
 
-    if(add(headChar, headLocation[0], headLocation[1]))
-    {
-        for(auto peice : bodyPieces)
+    for(int x =0; x < distance; x++){
+        if(add(headChar, headLocation[0], headLocation[1]))
         {
-            remove(peice.rowPos, peice.colPos);
-            peice.rowPos += dVector[0];
-            peice.colPos += dVector[1];
-            add(bodyChar, peice.rowPos, peice.colPos);
+            for(auto peice : bodyPieces)
+            {
+                remove(peice.rowPos, peice.colPos);
+                peice.rowPos += dVector[0];
+                peice.colPos += dVector[1];
+                add(bodyChar, peice.rowPos, peice.colPos);
+            }
+            return true;
+        }else{
+            alive = false;
+            std::cout << "You have died you foool";
+            return false;
         }
-        return true;
-    }else{
-        //lose
-        return false;
     }
 }
 

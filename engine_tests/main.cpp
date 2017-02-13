@@ -570,6 +570,23 @@ TEST_F(WormTest, MOVEWORMTEST)
     EXPECT_EQ(' ', worm.get(5,0));
 }
 
+TEST_F(WormTest, SELFHITTEST)
+{
+    worm.init();
+    EXPECT_TRUE(worm.move(1,1));
+    EXPECT_TRUE(worm.move(0,1));
+    EXPECT_TRUE(worm.move(3,1));
+    EXPECT_FALSE(worm.move(4,1));
+    EXPECT_FALSE(worm.alive);
+}
+
+TEST_F(WormTest, GETFOODTEST)
+{
+    worm.init();
+
+
+}
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();

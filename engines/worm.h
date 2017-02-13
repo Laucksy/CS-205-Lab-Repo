@@ -28,10 +28,6 @@ public:
     void defineDirection();
 
 
-    bool won();
-    bool lost();
-
-
     //Varialbes
     char gameboard[ROWS][COLS];
 
