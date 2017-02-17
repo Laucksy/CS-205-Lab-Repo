@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <curses.h>
-#include "value.h"
 
 // forward reference of function with a passed reference
 // to an object

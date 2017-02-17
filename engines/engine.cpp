@@ -13,7 +13,7 @@ Engine::Engine() {
 Engine::Engine(int r, int c) {
     rows = r;
     cols = c;
-    Engine::Engine();
+    Engine();
 }
 
 Engine::~Engine() {

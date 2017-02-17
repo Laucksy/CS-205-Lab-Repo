@@ -1,5 +1,6 @@
 #ifndef ENGINE_H
 #define ENGINE_H
+#define NULL nullptr
 
 
 class Engine
