@@ -7,6 +7,7 @@
 
 #ifdef DEBUGGING
     #define SHOW_WHERE std::cout << __PRETTY_FUNCTION__ << " id:" << id <<std::endl;
+    #define SHOW_WHERE_NOID std::cout << __PRETTY_FUNCTION__ <<std::endl;
 #else
     #define SHOW_WHERE
 #endif

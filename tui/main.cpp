@@ -1,11 +1,15 @@
-#include <iostream>
-#include <string>
-#include <curses.h>
+#include "robotsscreen.h"
+#include "iostream"
+#include "curses.h"
+#include "screen.h"
+#include "string"
 
 using namespace std;
 
 int main(int argc, char *argv[])
 {
-    cout << "Hello World!" << endl;
+    //Screen screen;
+    RobotsScreen rscreen;
+    //cout << "Hello World!" << endl;
     return 0;
 }

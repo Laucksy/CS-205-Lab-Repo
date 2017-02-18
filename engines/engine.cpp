@@ -1,6 +1,8 @@
 #include "engine.h"
 
 Engine::Engine() {
+    rows = 4;
+    cols = 4;
     // allocation
     gameboard = new char*[rows];
     for(int i = 0; i < rows; i++)
@@ -13,7 +15,13 @@ Engine::Engine() {
 Engine::Engine(int r, int c) {
     rows = r;
     cols = c;
-    Engine();
+    // allocation
+    gameboard = new char*[rows];
+    for(int i = 0; i < rows; i++)
+        gameboard[i] = new char[cols];
+    for(int i = 0; i < rows; i++)
+        for(int j = 0; j < cols; j++)
+            gameboard[i][j] = '_';
 }
 
 Engine::~Engine() {

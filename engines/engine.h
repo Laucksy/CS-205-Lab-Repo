@@ -1,7 +1,6 @@
 #ifndef ENGINE_H
 #define ENGINE_H
-#define NULL nullptr
-
+#include "stddef.h"
 
 class Engine
 {
@@ -16,8 +15,8 @@ public:
     char get(int r, int c);
     void remove(int r, int c);
 protected:
-    int rows = 4;
-    int cols = 4;
+    int rows;
+    int cols;
 
     // declaration
     char ** gameboard;

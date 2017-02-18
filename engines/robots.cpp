@@ -3,7 +3,7 @@ using namespace std;
 
 /* Default constructor
  */
-Robots::Robots() {
+Robots::Robots() : Engine::Engine() {
     playerRow = -1;
     playerCol = -1;
     mode = 0;
@@ -169,23 +169,27 @@ bool Robots::turn(char input) {
          ^L      redraw the screen
     */
 
-    if(mode == 0) { //For clarification, AFAP is As Far As Possible
-        if(input == 'h') {move(nextBoard,7,1);} //Moves up
-        if(input == 'H') {move(nextBoard,7,2);} //Moves up AFAP
-        if(input == 'l') {move(nextBoard,3,1);} //Moves up right
-        if(input == 'L') {move(nextBoard,3,2);} //Moves up right AFAP
-        if(input == 'k') {move(nextBoard,1,1);} //Moves right
-        if(input == 'K') {move(nextBoard,1,2);} //Moves right AFAP
-        if(input == 'j') {move(nextBoard,5,1);} //Moves down right
-        if(input == 'J') {move(nextBoard,5,2);} //Moves down right AFAP
-        if(input == 'y') {move(nextBoard,8,1);} //Moves down
-        if(input == 'Y') {move(nextBoard,8,2);} //Moves down AFAP
-        if(input == 'u') {move(nextBoard,2,1);} //Moves down left
-        if(input == 'U') {move(nextBoard,2,2);} //Moves down left AFAP
-        if(input == 'b') {move(nextBoard,6,1);} //Moves left
-        if(input == 'B') {move(nextBoard,6,2);} //Moves left AFAP
-        if(input == 'n') {move(nextBoard,4,1);} //Moves up left
-        if(input == 'N') {move(nextBoard,4,2);} //Moves up left AFAP
+    if(mode == 0) { //For clarification, P means it went as far as possible
+        bool moved = false;
+        if(input == 'h') {moved = move(nextBoard,7,1);} //Moves up
+        if(input == 'H') {moved = move(nextBoard,7,2);} //Moves up P
+        if(input == 'l') {moved = move(nextBoard,3,1);} //Moves up right
+        if(input == 'L') {moved = move(nextBoard,3,2);} //Moves up right P
+        if(input == 'k') {moved = move(nextBoard,1,1);} //Moves right
+        if(input == 'K') {moved = move(nextBoard,1,2);} //Moves right P
+        if(input == 'j') {moved = move(nextBoard,5,1);} //Moves down right
+        if(input == 'J') {moved = move(nextBoard,5,2);} //Moves down right P
+        if(input == 'y') {moved = move(nextBoard,8,1);} //Moves down
+        if(input == 'Y') {moved = move(nextBoard,8,2);} //Moves down P
+        if(input == 'u') {moved = move(nextBoard,2,1);} //Moves down left
+        if(input == 'U') {moved = move(nextBoard,2,2);} //Moves down left P
+        if(input == 'b') {moved = move(nextBoard,6,1);} //Moves left
+        if(input == 'B') {moved = move(nextBoard,6,2);} //Moves left P
+        if(input == 'n') {moved = move(nextBoard,4,1);} //Moves up left
+        if(input == 'N') {moved = move(nextBoard,4,2);} //Moves up left P
+        if(!moved) {
+            return false;
+        }
     } else if(mode == 1) { //Handles if they're in > mode
         if(nextBoard[playerRow][playerCol] != ' ') {
             mode = 0;
@@ -307,7 +311,7 @@ void Robots::teleport() {
     int newRow = rand() % rows;
     int newCol = rand() % cols;
     if(gameboard != NULL && gameboard[newRow] != NULL &&
-            gameboard[newRow][newCol] != NULL && gameboard[playerRow]
+            gameboard[newRow][newCol] != '\0' && gameboard[playerRow]
             != NULL && gameboard[playerRow][playerCol]) {
         if(gameboard[newRow][newCol] != ' ') { //Player dies
             gameboard[newRow][newCol] = LSYM;
