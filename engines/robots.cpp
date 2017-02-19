@@ -4,25 +4,39 @@ using namespace std;
 /* Default constructor
  */
 Robots::Robots() : Engine::Engine() {
+    srand(time(NULL));
     playerRow = -1;
     playerCol = -1;
     mode = 0;
     score = 0;
+    initBots = 0;
+    botNum = 0;
 }
 
 Robots::Robots(int r, int c) : Engine::Engine(r, c) {
+    srand(time(NULL));
     playerRow = -1;
     playerCol = -1;
     mode = 0;
     score = 0;
+    initBots = rows * cols / 50;
+    botNum = 0;
 }
 
 /* Copy constructor
  * @param obj - Item to copy
  */
 Robots::Robots(Robots &obj) {
+    srand(time(NULL));
     rows = obj.rows;
     cols = obj.cols;
+    // allocation
+    gameboard = new char*[rows];
+    for(int i = 0; i < rows; i++)
+        gameboard[i] = new char[cols];
+    for(int i = 0; i < rows; i++)
+        for(int j = 0; j < cols; j++)
+            gameboard[i][j] = ' ';
     if(gameboard != NULL) {
         for(int i = 0; i < rows; i++) {
             if(gameboard[i] != NULL) {
@@ -36,6 +50,8 @@ Robots::Robots(Robots &obj) {
     playerCol = obj.playerCol;
     mode = obj.mode;
     score = obj.score;
+    initBots = obj.initBots;
+    botNum = obj.botNum;
 }
 
 /* Default destructor
@@ -48,6 +64,16 @@ Robots::~Robots() {
  * @param obj - object to copy
  */
 void Robots::operator=(Robots &obj) {
+    srand(time(NULL));
+    rows = obj.rows;
+    cols = obj.cols;
+    // allocation
+    gameboard = new char*[rows];
+    for(int i = 0; i < rows; i++)
+        gameboard[i] = new char[cols];
+    for(int i = 0; i < rows; i++)
+        for(int j = 0; j < cols; j++)
+            gameboard[i][j] = ' ';
     if(gameboard != NULL) {
         for(int i = 0; i < rows; i++) {
             if(gameboard[i] != NULL) {
@@ -61,19 +87,29 @@ void Robots::operator=(Robots &obj) {
     playerCol = obj.playerCol;
     mode = obj.mode;
     score = obj.score;
+    initBots = obj.initBots;
+    botNum = obj.botNum;
 }
 
 /* Returns score for the player
  * @return int - player score
  */
-int Robots::getScore() {
+int Robots::get_score() {
     return score;
+}
+
+/* Returns initial bots
+ * @return int - initial bots
+ */
+int Robots::get_init_bots() {
+    return initBots;
 }
 
 /* Initializes the board and adds bots
  * @param numBots - how many bots to add to board
  */
 void Robots::init_board(int numBots) {
+    botNum = numBots;
     if(gameboard != NULL) {
         for(int i = 0; i < rows; i++) {
             if(gameboard[i] != NULL) {
@@ -102,6 +138,9 @@ void Robots::init_board(int numBots) {
  * @return boolean on whether the full turn went through or not.
  */
 bool Robots::turn(char input) {
+    int oldScore = score;
+    int oldPRow = playerRow;
+    int oldPCol = playerCol;
     if(input == 'q') { //Quits on command
         std::cout << "Exiting";
         exit(0);
@@ -117,37 +156,19 @@ bool Robots::turn(char input) {
         mode = 2; //Sets up wait until die
     }
 
-    char** nextBoard = new char*[rows]; //Makes second board to transfer new moves to
+    char** nextBoard = new char*[rows]; //Makes second board to transfer
+                                                //new moves to
     for(int i = 0; i < rows; i++)
         nextBoard[i] = new char[cols];
     for(int i = 0; i < rows; i++) {
         for(int j = 0; j < cols; j++) {
-            nextBoard[i][j] = ' '; //Makes new board empty
+            if(gameboard[i][j] == TSYM)
+                nextBoard[i][j] = TSYM; //Adds trash piles to board
+            else
+                nextBoard[i][j] = ' '; //Makes new board empty
         }
     }
-    for(int i = 0; i < rows; i++) {
-        for(int j = 0; j < cols; j++) {
-            if(get(i,j) == RSYM) { //Moves all robots first
-                if(i - playerRow > 0 && j == playerCol) {
-                    single_move(nextBoard,RSYM,i,j,1); //Moves up
-                } else if(i - playerRow > 0 && j - playerCol < 0) {
-                    single_move(nextBoard,RSYM,i,j,2); //Moves up right
-                } else if(i == playerRow && j - playerCol < 0) {
-                    single_move(nextBoard,RSYM,i,j,3); //Moves right
-                } else if(i - playerRow < 0 && j - playerCol < 0) {
-                    single_move(nextBoard,RSYM,i,j,4); //Moves down right
-                } else if(i - playerRow < 0 && j == playerCol) {
-                    single_move(nextBoard,RSYM,i,j,5); //Moves down
-                } else if(i - playerRow < 0 && j - playerCol > 0) {
-                    single_move(nextBoard,RSYM,i,j,6); //Moves down left
-                } else if(i == playerRow && j - playerCol > 0) {
-                    single_move(nextBoard,RSYM,i,j,7); //Moves left
-                } else if(i - playerRow > 0 && j - playerCol > 0) {
-                    single_move(nextBoard,RSYM,i,j,8); //Moves up left
-                }
-            }
-        }
-    }
+
 
     /*
       The commands are:
@@ -188,30 +209,79 @@ bool Robots::turn(char input) {
         if(input == 'n') {moved = move(nextBoard,4,1);} //Moves up left
         if(input == 'N') {moved = move(nextBoard,4,2);} //Moves up left P
         if(!moved) {
+            score = oldScore;
+            playerRow = oldPRow;
+            playerCol = oldPCol;
+            delete[] nextBoard;
             return false;
         }
-    } else if(mode == 1) { //Handles if they're in > mode
+    }
+
+    for(int i = 0; i < rows; i++) {
+        for(int j = 0; j < cols; j++) {
+            if(get(i,j) == RSYM) { //Moves all robots first
+                bool moved = false;
+                if(i - playerRow > 0 && j == playerCol) {
+                    moved = single_move(nextBoard,RSYM,i,j,1); //Up
+                } else if(i - playerRow > 0 && j - playerCol < 0) {
+                    moved = single_move(nextBoard,RSYM,i,j,2); //Up right
+                } else if(i == playerRow && j - playerCol < 0) {
+                    moved = single_move(nextBoard,RSYM,i,j,3); //Right
+                } else if(i - playerRow < 0 && j - playerCol < 0) {
+                    moved = single_move(nextBoard,RSYM,i,j,4); //Down right
+                } else if(i - playerRow < 0 && j == playerCol) {
+                    moved = single_move(nextBoard,RSYM,i,j,5); //Down
+                } else if(i - playerRow < 0 && j - playerCol > 0) {
+                    moved = single_move(nextBoard,RSYM,i,j,6); //Down left
+                } else if(i == playerRow && j - playerCol > 0) {
+                    moved = single_move(nextBoard,RSYM,i,j,7); //Left
+                } else if(i - playerRow > 0 && j - playerCol > 0) {
+                    moved = single_move(nextBoard,RSYM,i,j,8); //Up left
+                }
+                if(!moved) {
+                    score = oldScore;
+                    playerRow = oldPRow;
+                    playerCol = oldPCol;
+                    delete[] nextBoard;
+                    return false;
+                }
+            }
+        }
+    }
+
+    if(mode == 1) { //Handles if they're in > mode
         if(nextBoard[playerRow][playerCol] != ' ') {
             mode = 0;
+            score = oldScore;
+            playerRow = oldPRow;
+            playerCol = oldPCol;
+            delete[] nextBoard;
             return false; //This means the player would die, so don't let it
         }
         nextBoard[playerRow][playerCol] = PSYM;
-    } else {
+    }
+    else if (mode == 2){
         if(nextBoard[playerRow][playerCol] != ' ') {
             nextBoard[playerRow][playerCol] = LSYM; //Kill player
             mode = 0;
         } else {
             nextBoard[playerRow][playerCol] = PSYM;
+            if(won()) {
+                score += (score - oldScore) * .1;
+                mode = 0;
+            }
         }
         if(input == '.' || input == ' ') {
             mode = 0; //Go back to normal mode
         }
     }
+
     if(gameboard != NULL) {
         for(int i = 0; i < rows; i++) {
             if(gameboard[i] != NULL) {
                 for(int j = 0; j < cols; j++) {
-                    gameboard[i][j] = nextBoard[i][j]; //Copy new board to old one
+                    gameboard[i][j] = nextBoard[i][j]; //Copy new board
+                                                            //to old one
                 }
             }
         }
@@ -265,6 +335,9 @@ bool Robots::single_move(char** nextBoard, char type,
             (c + cShift) >= cols || (c + cShift) < 0) {
         return false; //Can't move to invalid space
     } else if(type == RSYM) { //Moving a robot
+        if(nextBoard[r+rShift][c+cShift] == PSYM) {
+            return false; //Can't move here or player dies
+        }
         if(nextBoard[r+rShift][c+cShift] == RSYM) {
             nextBoard[r+rShift][c+cShift] = TSYM;
             score += 20; //Robot collides with robot
@@ -277,7 +350,8 @@ bool Robots::single_move(char** nextBoard, char type,
         }
         return true;
     } else if(type == PSYM) { //Moving a player
-        if(nextBoard[r+rShift][c+cShift] != ' ') {
+        if(nextBoard[r+rShift][c+cShift] != ' '
+                || gameboard[r+rShift][c+cShift] != ' ') {
             return false; //Can't move here or player dies
         } else {
             nextBoard[r+rShift][c+cShift] = PSYM; //Move player here
@@ -312,7 +386,7 @@ void Robots::teleport() {
     int newCol = rand() % cols;
     if(gameboard != NULL && gameboard[newRow] != NULL &&
             gameboard[newRow][newCol] != '\0' && gameboard[playerRow]
-            != NULL && gameboard[playerRow][playerCol]) {
+            != NULL && gameboard[playerRow][playerCol] != '\0') {
         if(gameboard[newRow][newCol] != ' ') { //Player dies
             gameboard[newRow][newCol] = LSYM;
             gameboard[playerRow][playerCol] = ' ';
@@ -323,15 +397,32 @@ void Robots::teleport() {
             gameboard[playerRow][playerCol] = ' ';
             playerRow = newRow;
             playerCol = newCol;
+            for(int i = 0; i < rows; i++) {
+                for(int j = 0; j < cols; j++) {
+                    if(get(i,j) == RSYM) { //Moves all robots
+                        if(i - playerRow > 0 && j == playerCol) {
+                            single_move(gameboard,RSYM,i,j,1); //Up
+                        } else if(i - playerRow > 0 && j - playerCol < 0) {
+                            single_move(gameboard,RSYM,i,j,2); //Up right
+                        } else if(i == playerRow && j - playerCol < 0) {
+                            single_move(gameboard,RSYM,i,j,3); //Right
+                        } else if(i - playerRow < 0 && j - playerCol < 0) {
+                            single_move(gameboard,RSYM,i,j,4); //Down right
+                        } else if(i - playerRow < 0 && j == playerCol) {
+                            single_move(gameboard,RSYM,i,j,5); //Down
+                        } else if(i - playerRow < 0 && j - playerCol > 0) {
+                            single_move(gameboard,RSYM,i,j,6); //Down left
+                        } else if(i == playerRow && j - playerCol > 0) {
+                            single_move(gameboard,RSYM,i,j,7); //Left
+                        } else if(i - playerRow > 0 && j - playerCol > 0) {
+                            single_move(gameboard,RSYM,i,j,8); //Up left
+                        }
+                    }
+                }
+            }
         }
     }
 }
-
-//void Robots::quit() {}
-
-/*bool Robots::draw() {
-    return false;
-}*/
 
 /* Clears gameboard
  */
@@ -346,6 +437,12 @@ void Robots::clear() {
         }
     }
     mode = 0;
+}
+
+/* Resets board for next level
+ */
+void Robots::level() {
+    init_board(botNum + (botNum/10));
 }
 
 /* Checks if the game is won

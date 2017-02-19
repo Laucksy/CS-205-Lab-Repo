@@ -9,7 +9,7 @@ Engine::Engine() {
         gameboard[i] = new char[cols];
     for(int i = 0; i < rows; i++)
         for(int j = 0; j < cols; j++)
-            gameboard[i][j] = '_';
+            gameboard[i][j] = ' ';
 }
 
 Engine::Engine(int r, int c) {
@@ -21,7 +21,7 @@ Engine::Engine(int r, int c) {
         gameboard[i] = new char[cols];
     for(int i = 0; i < rows; i++)
         for(int j = 0; j < cols; j++)
-            gameboard[i][j] = '_';
+            gameboard[i][j] = ' ';
 }
 
 Engine::~Engine() {

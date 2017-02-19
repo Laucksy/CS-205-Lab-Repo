@@ -21,7 +21,8 @@ class Robots : public Engine
 
         //Methods
         //Gets and Sets
-        int getScore();
+        int get_score();
+        int get_init_bots();
 
         //Gameflow
         void init_board(int numBots);
@@ -29,6 +30,7 @@ class Robots : public Engine
 
         //Meta information
         void clear();
+        void level();
         bool won();
         bool lost();
 
@@ -41,16 +43,15 @@ class Robots : public Engine
 
     private:
         //Methods
-        //Movements
         bool single_move(char** nextBoard,
                            char type, int r, int c, int direction);
         bool move(char** nextBoard, int direction, int distance);
         void teleport();
-        //void quit();
-        //bool draw();
 
         //Variables
         int score;
+        int initBots;
+        int botNum;
 };
 
 #endif // ROBOTS_H

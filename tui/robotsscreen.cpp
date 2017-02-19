@@ -2,106 +2,125 @@
 
 RobotsScreen::RobotsScreen() {
     Robots robot(20,50);
-    robot.init_board(robot.getRows() * robot.getCols() / 50);
+    robot.init_board(robot.get_init_bots());
     bool continue_looping = true; // initialize the interaction loop to run
-    draw_screen(robot); // draw the current screen
+    draw_screen(robot, 0); // draw the current screen
 
-    Log logger("screenLog.txt");
-    logger.open_append();
+    //Log logger("screenLog.txt");
+    //logger.open_append();
     do {
         refresh(); // draw the new screen
         int ch = getch(); // obtain character from keyboard
 
         // operate based on input character
         switch (ch) {
-            case 104:
-                robot.turn('h');
-                break;
-            case 106:
-                robot.turn('j');
-                break;
-            case 107:
-                robot.turn('k');
-                break;
-            case 108:
-                robot.turn('l');
-                break;
-            case 121:
-                robot.turn('y');
-                break;
-            case 117:
-                robot.turn('u');
-                break;
-            case 98:
-                robot.turn('b');
-                break;
-            case 110:
-                robot.turn('n');
-                break;
-            case 72:
-                robot.turn('H');
-                break;
-            case 74:
-                robot.turn('J');
-                break;
-            case 75:
-                robot.turn('K');
-                break;
-            case 76:
-                robot.turn('L');
-                break;
-            case 89:
-                robot.turn('Y');
-                break;
-            case 85:
-                robot.turn('U');
-                break;
-            case 66:
-                robot.turn('B');
-                break;
-            case 78:
-                robot.turn('N');
-                break;
-            case 119:
-                robot.turn('w');
-                break;
-            case 62:
-                robot.turn('>');
-                break;
-            case 116:
-                robot.turn('t');
-                break;
-            case 113:
-                robot.turn('q');
-                break;
-            case 12:
-                draw_screen(robot);
-                break;
-            case KEY_RIGHT:
-                continue_looping = false;
-                break;
-            default:
-                logger << ch << '\n';
+        case 104:
+            robot.turn('h');
+            break;
+        case 106:
+            robot.turn('j');
+            break;
+        case 107:
+            robot.turn('k');
+            break;
+        case 108:
+            robot.turn('l');
+            break;
+        case 121:
+            robot.turn('y');
+            break;
+        case 117:
+            robot.turn('u');
+            break;
+        case 98:
+            robot.turn('b');
+            break;
+        case 110:
+            robot.turn('n');
+            break;
+        case 72:
+            robot.turn('H');
+            break;
+        case 74:
+            robot.turn('J');
+            break;
+        case 75:
+            robot.turn('K');
+            break;
+        case 76:
+            robot.turn('L');
+            break;
+        case 89:
+            robot.turn('Y');
+            break;
+        case 85:
+            robot.turn('U');
+            break;
+        case 66:
+            robot.turn('B');
+            break;
+        case 78:
+            robot.turn('N');
+            break;
+        case 119:
+            robot.turn('w');
+            break;
+        case 62:
+            robot.turn('>');
+            break;
+        case 46:
+            robot.turn('.');
+            break;
+        case 32:
+            robot.turn(' ');
+            break;
+        case 116:
+            robot.turn('t');
+            break;
+        case 113:
+            robot.turn('q');
+            break;
+        case 12:
+            draw_screen(robot, 0);
+            break;
+        case KEY_RIGHT:
+            //continue_looping = false; //Comment out when not debugging
+            break;
+        default:
+            //logger << ch << '\n'; //Comment out when not debugging
+            break;
         }
 
-        draw_screen(robot);
+        draw_screen(robot, 0);
 
         if(robot.won()) {
-            continue_looping = false;
-            std::cout << "Congrats! You won!" << std::endl;
+            robot.level();
+            draw_screen(robot, 0);
+            //continue_looping = false;
+            //std::cout << "Congrats! You won!" << std::endl;
         }
         if(robot.lost()) {
-            continue_looping = false;
-            std::cout << "You lost!" << std::endl;
+            draw_screen(robot, 1);
+            int answer = 0;
+            while(answer != 121 && answer != 110) {
+                answer = getch();
+            }
+            if(answer == 121) {
+                robot = *(new Robots(robot.getRows(), robot.getCols()));
+                robot.init_board(robot.get_init_bots());
+                draw_screen(robot, 0);
+            } else {
+                continue_looping = false;
+            }
         }
 
     } while(continue_looping);
 
     endwin(); // cleanup the window and return control to bash
-    std::cout << "exiting game\n";
+    //std::cout << "exiting game\n";
 }
 
-void RobotsScreen::draw_screen(Robots &r) {
+void RobotsScreen::draw_screen(Robots &r, int type) {
     std::string display;
     clear();
 
@@ -144,6 +163,11 @@ void RobotsScreen::draw_screen(Robots &r) {
     mvprintw(17, 3 + r.getCols(), "+:  robot");
     mvprintw(18, 3 + r.getCols(), "*:  junk heap");
     mvprintw(19, 3 + r.getCols(), "@:  you");
-    std::string scoreMessage = "Score: " + std::to_string(r.getScore());
-    mvprintw(21, 3 + r.getCols(), scoreMessage.c_str());
+
+    if(type == 0) {
+        std::string scoreMessage = "Score: " + std::to_string(r.get_score());
+        mvprintw(21, 3 + r.getCols(), scoreMessage.c_str());
+    } else {
+        mvprintw(21, 3 + r.getCols(), "Another game? (y/n)");
+    }
 }

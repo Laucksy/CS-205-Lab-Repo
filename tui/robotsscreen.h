@@ -8,7 +8,7 @@ class RobotsScreen : public Screen
     public:
         RobotsScreen();
 
-        void draw_screen(Robots &r);
+        void draw_screen(Robots &r, int type);
 };
 
 #endif // ROBOTSSCREEN_H
