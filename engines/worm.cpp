@@ -1,13 +1,20 @@
 #include "worm.h"
 
-
-
 Worm::Worm()
 {
 }
 
 Worm::Worm(int r, int c) : Engine::Engine(r, c)
 {
+    Engine(r,c);
+    for(int i = 0; i <rows; i++)
+    {
+        for(int j = 0; j < cols; j++)
+        {
+            gameboard[i][j] = ' ';
+        }
+    }
+    //std::cout << "Complete PAsta";
 }
 
 Worm::Worm(Worm &obj) {
@@ -58,7 +65,6 @@ void Worm::init()
     direction = 1;
     headLocation[0] = rows/2;//Maakes the y location of the body
     headLocation[1] = cols/2;//makes the x location of the boyd
-    //std::cout << dVector[0] << " DVECTORS  " << dVector[1] << "\n" ;
     add(headChar, headLocation[0], headLocation[1]);
     makeBody();
     addFruit();
@@ -79,7 +85,7 @@ void Worm::makeBody()
         bodyPieces[0].rowPos = headLocation[0] - dVector[0];
         bodyPieces[0].colPos = headLocation[1] - dVector[1];
 
-        //add(bodyChar, bodyPieces[0].rowPos, bodyPieces[0].colPos);
+        add(bodyChar, bodyPieces[0].rowPos, bodyPieces[0].colPos);
         for(int x =1; x< startLength; x++)
         {
             addToBody();
@@ -129,6 +135,8 @@ bool Worm::addToBody()
  */
 bool Worm::move(int dir, int distance)
 {
+    bool worked = false;
+    for(int x =0; x < distance; x++){
     //Define the direction of the snake
     direction = dir;
     defineDirection();
@@ -136,20 +144,28 @@ bool Worm::move(int dir, int distance)
     headLocation[0] += dVector[0];
     headLocation[1] += dVector[1];
 
-    for(int x =0; x < distance; x++){
+
         if(add(headChar, headLocation[0], headLocation[1])) // Is true when
                                                           //the head can move
         {
             //Remove each peice from the gameboard, move each peice, add
                 //back to gameboard
-            for(auto peice : bodyPieces)
+            remove(bodyPieces[0].rowPos, bodyPieces[0].colPos);
+            bodyPieces[0].rowPos = headLocation[0] - dVector[0];
+            bodyPieces[0].colPos = headLocation[1] - dVector[1];
+            add(bodyChar, bodyPieces[0].rowPos, bodyPieces[0].colPos);
+
+            for(int i = bodyPieces.size()-1; i >0; i--)
             {
-                remove(peice.rowPos, peice.colPos);
-                peice.rowPos += dVector[0];
-                peice.colPos += dVector[1];
-                add(bodyChar, peice.rowPos, peice.colPos);
+                remove(bodyPieces[i].rowPos, bodyPieces[i].colPos);
+                bodyPieces[i].rowPos = bodyPieces[i-1].rowPos;
+                bodyPieces[i].colPos = bodyPieces[i-1].colPos;
             }
-            return true;
+            for(int i = bodyPieces.size()-1; i >0; i--)
+            {
+                add(bodyChar, bodyPieces[i].rowPos, bodyPieces[i].colPos);
+            }
+            worked =  true;
         }else{
             if(get(headLocation[0], headLocation[1]) == foodChar)
                 //If where the head is going has a fruit
@@ -158,28 +174,35 @@ bool Worm::move(int dir, int distance)
                 add(headChar, headLocation[0], headLocation[1]);
                     //Add the head to the position
 
+                remove(bodyPieces[0].rowPos, bodyPieces[0].colPos);
+                bodyPieces[0].rowPos = headLocation[0] - dVector[0];
+                bodyPieces[0].colPos = headLocation[1] - dVector[1];
                 //Remove each peice from the gameboard, move each peice,
                     //add back to gameboard
-                for(auto peice : bodyPieces)
+                for(int i = bodyPieces.size()-1; i >0; i--)
                 {
-                    remove(peice.rowPos, peice.colPos);
-                    peice.rowPos += dVector[0];
-                    peice.colPos += dVector[1];
-                    add(bodyChar, peice.rowPos, peice.colPos);
+                    remove(bodyPieces[i].rowPos, bodyPieces[i].colPos);
+                    bodyPieces[i].rowPos = bodyPieces[i-1].rowPos;
+                    bodyPieces[i].colPos = bodyPieces[i-1].colPos;
+                }
+                for(auto pieces : bodyPieces)
+                {
+                    add(bodyChar, pieces.rowPos, pieces.colPos);
                 }
                 //Add another peice to the body
                 addToBody();
-                return true;
+                addFruit();
+                worked =  true;
             }else{
                 //End the game
                 alive = false;
                 std::cout << "You have died you foool";
                 std::cout << "Your length was " << length;
-                return false;
+                worked =  false;
             }
         }
     }
-    return false;
+    return worked;
 }
 
 /*
