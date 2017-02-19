@@ -1,4 +1,5 @@
 #include "robotsscreen.h"
+#include "wormscreen.h"
 #include "iostream"
 #include "curses.h"
 #include "screen.h"
@@ -9,7 +10,9 @@ using namespace std;
 int main(int argc, char *argv[])
 {
     //Screen screen;
-    RobotsScreen rscreen;
+    //RobotsScreen rscreen;
+    WormScreen wscreen;
+    std::cin;
     //cout << "Hello World!" << endl;
     return 0;
 }

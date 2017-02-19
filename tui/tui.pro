@@ -10,7 +10,8 @@ SOURCES += main.cpp \
     ../engines/worm.cpp \
     ../tools/log.cpp \
     ../tools/baseclass.cpp \
-    robotsscreen.cpp
+    robotsscreen.cpp \
+    wormscreen.cpp
 
 LIBS    += -lncurses
 
@@ -21,4 +22,5 @@ HEADERS += \
     ../engines/worm.h \
     ../tools/log.h \
     ../tools/baseclass.cpp \
-    robotsscreen.h
+    robotsscreen.h \
+    wormscreen.h
