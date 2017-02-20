@@ -7,4 +7,6 @@ SUBDIRS += \
     toolstest \
     engines \
     engine_tests \
-    tui
+    tui \
+    GUIWorm \
+    GUIRobot
