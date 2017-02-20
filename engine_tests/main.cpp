@@ -21,6 +21,7 @@ protected:
     Worm worm;
     WormTest() {
         // You can do set-up work for each test here.
+        worm = *(new Worm(10,20));
     }
 
     virtual ~WormTest() {

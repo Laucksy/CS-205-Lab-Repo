@@ -2,6 +2,8 @@
 
 Worm::Worm()
 {
+    alive = true;
+    length = 1;
 }
 
 Worm::Worm(int r, int c) : Engine::Engine(r, c)
@@ -13,6 +15,8 @@ Worm::Worm(int r, int c) : Engine::Engine(r, c)
             gameboard[i][j] = ' ';
         }
     }
+    alive = true;
+    length = 1;
     //std::cout << "Complete Pasta";
 }
 
@@ -34,11 +38,12 @@ Worm::Worm(Worm &obj) : Engine::Engine(obj.rows, obj.cols)
 
     length = obj.length;
     bodyPieces = obj.bodyPieces;
+    alive = obj.alive;
 }
 
 Worm::~Worm()
 {
-    delete[] gameboard;
+
 }
 
 void Worm::operator=(Worm &obj) {
@@ -58,6 +63,7 @@ void Worm::operator=(Worm &obj) {
 
     length = obj.length;
     bodyPieces = obj.bodyPieces;
+    alive = obj.alive;
 }
 
 void Worm::init()

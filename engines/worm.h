@@ -2,8 +2,9 @@
 #define WORM_H
 
 #define startLength 4
-//#define headChar @
-//#define bodyChar 0
+#define headChar '@' //Chracted used for the worm head
+#define bodyChar '0' //character used for worm body
+#define foodChar '*' //characted for the fruit
 
 #include "engine.h"
 #include "iostream"
@@ -30,8 +31,8 @@ public:
     void addFruit();        //Generates a fruit at a random spot
 
     //Varialbes
-    bool alive = true;      //Tells if the snake is alive or dead
-    int length = 1;         //The length of the snake, equivilant to score
+    bool alive;      //Tells if the snake is alive or dead
+    int length;         //The length of the snake, equivilant to score
 
 
 
@@ -52,11 +53,6 @@ private:
         int colPos;
     };
     std::vector<bodyPiece> bodyPieces;//A vector to keep all the worms peices
-
-    char headChar = '@';//Chracted used for the worm head
-    char bodyChar = '0';//character used for worm body
-    char foodChar = '*';//characted for the fruit
-
     int headLocation[2];//row,col of head loaction
     int dVector[2];//The direction vector, [row, col]
     int direction;//N:0, E:1, S:2, W:3
