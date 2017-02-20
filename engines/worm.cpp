@@ -43,10 +43,19 @@ Worm::Worm(Worm &obj) : Engine::Engine(obj.rows, obj.cols)
 
 Worm::~Worm()
 {
-
 }
 
 void Worm::operator=(Worm &obj) {
+    //std::cout << "Hit equality operator";
+    rows = obj.rows;
+    cols = obj.cols;
+    // allocation
+    gameboard = new char*[rows];
+    for(int i = 0; i < rows; i++)
+        gameboard[i] = new char[cols];
+    for(int i = 0; i < rows; i++)
+        for(int j = 0; j < cols; j++)
+            gameboard[i][j] = ' ';
     if(gameboard != NULL) {
         for(int i = 0; i < rows; i++) {
             if(gameboard[i] != NULL) {
