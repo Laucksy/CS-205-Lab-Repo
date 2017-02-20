@@ -21,6 +21,7 @@ protected:
     Worm worm;
     WormTest() {
         // You can do set-up work for each test here.
+        worm = *(new Worm(10,20));
     }
 
     virtual ~WormTest() {
@@ -364,7 +365,7 @@ TEST_F(WormTest, TESTSIMPLE) {
 
 TEST_F(WormTest, ADDTEST)
 {
-    ASSERT_TRUE(worm.add('a',5,5));
+    ASSERT_TRUE(worm.add('a',5,5)) << "Gameboard info " << worm.getRows() << "," << worm.getCols();
     ASSERT_TRUE(worm.add('b', 6,7));
     ASSERT_FALSE(worm.add('d',5,5));
 }

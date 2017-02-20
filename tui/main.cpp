@@ -10,9 +10,9 @@ using namespace std;
 int main(int argc, char *argv[])
 {
     //Screen screen;
-    //RobotsScreen rscreen;
-    WormScreen wscreen;
-    std::cin;
+    RobotsScreen rscreen;
+    //WormScreen wscreen;
+    //std::cin;
     //cout << "Hello World!" << endl;
     return 0;
 }

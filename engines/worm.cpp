@@ -38,7 +38,7 @@ Worm::Worm(Worm &obj) : Engine::Engine(obj.rows, obj.cols)
 
 Worm::~Worm()
 {
-    delete[] gameboard;
+    //delete[] gameboard;
 }
 
 void Worm::operator=(Worm &obj) {
