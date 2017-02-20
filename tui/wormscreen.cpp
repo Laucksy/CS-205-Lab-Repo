@@ -2,8 +2,9 @@
 
 WormScreen::WormScreen() : Screen::Screen()
 {
-    Worm worm(20,70);
+    Worm worm(20,77);
     worm.init();
+    start:
     while(worm.alive){
         draw_screen(worm);
         refresh();
@@ -41,6 +42,7 @@ WormScreen::WormScreen() : Screen::Screen()
             break;
         case 258:
             worm.move(2,1);
+            goto stop;
             break;
         case 83:
             worm.move(2,5);
@@ -58,15 +60,37 @@ WormScreen::WormScreen() : Screen::Screen()
             worm.move(3,5);
             break;
         case 393:
-            worm.move(3,1);
+            worm.move(3,5);
             break;
 
         default:
             ;
         }
-        // key = getch();
-        //std::cout << key;
     }
+    stop:
+    clear();
+    mvprintw(0,0, "You have died");
+    mvprintw(1,0,"Your score was: ");
+    std::string s = std::to_string(worm.length-4);
+    mvprintw(1,16, s.c_str());
+    mvprintw(10,20, "Do you want to replay (y/n)");
+    int response = getch();
+    if(response == 121)
+    {
+       worm = *(new Worm(20,77));
+       worm.alive = true;
+       worm.init();
+       draw_screen(worm);
+       refresh();
+       clear();
+       //refresh();
+       goto start;
+    }else{
+
+        endwin(); // cleanup the window and return control to bash
+
+    }
+
 }
 
 void WormScreen::draw_screen(Worm &w)
@@ -83,13 +107,13 @@ void WormScreen::draw_screen(Worm &w)
 
     for(int x = 0; x<= w.getCols(); x++)
     {
-        mvprintw(1,x, "*");
+        mvprintw(1, x, "*");
         mvprintw(w.getRows()+2, x, "*");
     }
     for(int y = 0; y <= w.getRows(); y++)
     {
         mvprintw(y + 1, 0, "*");
-        mvprintw(y+1, w.getCols() + 1, "*");
+        mvprintw(y + 1, w.getCols() + 1, "*");
     }
 
     for(int r = 0; r <w.getRows(); r++)
@@ -101,8 +125,8 @@ void WormScreen::draw_screen(Worm &w)
         mvprintw(2+r, 1, display.c_str());
         display = "";
     }
-
-    /*int ch = getch();
+/*
+    int ch = getch();
     std::string i = std::to_string(ch);
-    mvprintw(20,20,i.c_str());*/
+    mvprintw(10,10,i.c_str());*/
 }

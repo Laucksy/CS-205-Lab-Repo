@@ -6,7 +6,6 @@ Worm::Worm()
 
 Worm::Worm(int r, int c) : Engine::Engine(r, c)
 {
-    Engine(r,c);
     for(int i = 0; i <rows; i++)
     {
         for(int j = 0; j < cols; j++)
@@ -14,10 +13,11 @@ Worm::Worm(int r, int c) : Engine::Engine(r, c)
             gameboard[i][j] = ' ';
         }
     }
-    //std::cout << "Complete PAsta";
+    //std::cout << "Complete Pasta";
 }
 
-Worm::Worm(Worm &obj) {
+Worm::Worm(Worm &obj) : Engine::Engine(obj.rows, obj.cols)
+{
     if(gameboard != NULL) {
         for(int i = 0; i < rows; i++) {
             if(gameboard[i] != NULL) {
@@ -38,7 +38,7 @@ Worm::Worm(Worm &obj) {
 
 Worm::~Worm()
 {
-
+    delete[] gameboard;
 }
 
 void Worm::operator=(Worm &obj) {
@@ -76,7 +76,7 @@ void Worm::makeBody()
     //add the first body peice first
 
     if(gameboard[headLocation[0] - dVector[0]] != NULL &&
-       gameboard[headLocation[0] - dVector[0]][headLocation[1] - dVector[1]]
+            gameboard[headLocation[0] - dVector[0]][headLocation[1] - dVector[1]]
             != ' ')
     {
         std::cout <<"Couldnt add the first segment of the body";
@@ -97,12 +97,9 @@ bool Worm::addToBody()
 {
     int lastR = 0;
     int lastC = 0;
-    lastR = bodyPieces[length-1].rowPos;//The row of the tail
-    lastC = bodyPieces[length-1].colPos;//the collumn of the tail
+    lastR = bodyPieces[bodyPieces.size()-1].rowPos;//The row of the tail
+    lastC = bodyPieces[bodyPieces.size()-1].colPos;//the collumn of the tail
 
-
-    //std::cout << "\n" << "lRow " << lastR << " lCol" << lastC
-        //<< " " << sizeof(bodyPieces);;
     int rowPosition = lastR - dVector[0]; //New target location of tail peice
     int colPosition = lastC - dVector[1];
     if((rowPosition < rows && rowPosition >=0 ) &&
@@ -117,17 +114,17 @@ bool Worm::addToBody()
             return false;
         }else{
             bodyPieces.push_back(bodyPiece()); //Adds a empty spot to
-                                                //the back of worm vector
-            bodyPieces[length-1].rowPos = rowPosition; //Sets empty spot up
-            bodyPieces[length-1].colPos = colPosition;
-            add(bodyChar, bodyPieces[length-1].rowPos,
-                    bodyPieces[length-1].colPos);
+            //the back of worm vector
+            bodyPieces[bodyPieces.size()-1].rowPos = rowPosition; //Sets empty spot up
+            bodyPieces[bodyPieces.size()-1].colPos = colPosition;
+            add(bodyChar, bodyPieces[bodyPieces.size()-1].rowPos,
+                    bodyPieces[bodyPieces.size()-1].colPos);
             return true;
         }
     }
     return false;
-
 }
+
 /*
  * Makes the worm move in the direction given. Based on the distance it
  * will move more that many peices
@@ -137,23 +134,23 @@ bool Worm::move(int dir, int distance)
 {
     bool worked = false;
     for(int x =0; x < distance; x++){
-    //Define the direction of the snake
-    direction = dir;
-    defineDirection();
-    remove(headLocation[0], headLocation[1]);
-    headLocation[0] += dVector[0];
-    headLocation[1] += dVector[1];
+        //Define the direction of the snake
+        direction = dir;
+        defineDirection();
+        remove(headLocation[0], headLocation[1]);
+        headLocation[0] += dVector[0];
+        headLocation[1] += dVector[1];
 
 
         if(add(headChar, headLocation[0], headLocation[1])) // Is true when
-                                                          //the head can move
+            //the head can move
         {
             //Remove each peice from the gameboard, move each peice, add
-                //back to gameboard
+            //back to gameboard
             remove(bodyPieces[0].rowPos, bodyPieces[0].colPos);
             bodyPieces[0].rowPos = headLocation[0] - dVector[0];
             bodyPieces[0].colPos = headLocation[1] - dVector[1];
-            add(bodyChar, bodyPieces[0].rowPos, bodyPieces[0].colPos);
+            //add(bodyChar, bodyPieces[0].rowPos, bodyPieces[0].colPos);
 
             for(int i = bodyPieces.size()-1; i >0; i--)
             {
@@ -161,7 +158,7 @@ bool Worm::move(int dir, int distance)
                 bodyPieces[i].rowPos = bodyPieces[i-1].rowPos;
                 bodyPieces[i].colPos = bodyPieces[i-1].colPos;
             }
-            for(int i = bodyPieces.size()-1; i >0; i--)
+            for(int i = bodyPieces.size()-1; i >= 0; i--)
             {
                 add(bodyChar, bodyPieces[i].rowPos, bodyPieces[i].colPos);
             }
@@ -172,13 +169,13 @@ bool Worm::move(int dir, int distance)
             {
                 remove(headLocation[0], headLocation[1]); //Remove the fruit
                 add(headChar, headLocation[0], headLocation[1]);
-                    //Add the head to the position
+                //Add the head to the position
 
                 remove(bodyPieces[0].rowPos, bodyPieces[0].colPos);
                 bodyPieces[0].rowPos = headLocation[0] - dVector[0];
                 bodyPieces[0].colPos = headLocation[1] - dVector[1];
                 //Remove each peice from the gameboard, move each peice,
-                    //add back to gameboard
+                //add back to gameboard
                 for(int i = bodyPieces.size()-1; i >0; i--)
                 {
                     remove(bodyPieces[i].rowPos, bodyPieces[i].colPos);
@@ -196,9 +193,8 @@ bool Worm::move(int dir, int distance)
             }else{
                 //End the game
                 alive = false;
-                std::cout << "You have died you foool";
-                std::cout << "Your length was " << length;
                 worked =  false;
+                return false;
             }
         }
     }
