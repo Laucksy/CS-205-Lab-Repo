@@ -42,7 +42,7 @@ WormScreen::WormScreen() : Screen::Screen()
             break;
         case 258:
             worm.move(2,1);
-            goto stop;
+            //goto stop;
             break;
         case 83:
             worm.move(2,5);
