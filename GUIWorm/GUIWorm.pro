@@ -24,8 +24,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        guiworm.cpp
+        guiworm.cpp \
+    ../engines/engine.cpp \
+    ../engines/worm.cpp
 
-HEADERS  += guiworm.h
+HEADERS  += guiworm.h \
+    ../engines/engine.h \
+    ../engines/worm.h
 
 FORMS    += guiworm.ui

@@ -2,6 +2,7 @@
 #define GUIWORM_H
 
 #include <QWidget>
+#include "../engines/worm.h"
 
 namespace Ui {
 class GUIWorm;
@@ -14,6 +15,16 @@ class GUIWorm : public QWidget
 public:
     explicit GUIWorm(QWidget *parent = 0);
     ~GUIWorm();
+    Worm worm;
+
+private slots:
+    void on_dBtn_clicked();
+
+    void on_rBtn_clicked();
+
+    void on_lBtn_clicked();
+
+    void on_uBtn_clicked();
 
 private:
     Ui::GUIWorm *ui;
