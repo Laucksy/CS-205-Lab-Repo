@@ -24,8 +24,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        guirobot.cpp
+        guirobot.cpp \
+    ../engines/engine.cpp \
+    ../engines/robots.cpp
 
-HEADERS  += guirobot.h
+HEADERS  += guirobot.h \
+    ../engines/engine.h \
+    ../engines/robots.h
 
 FORMS    += guirobot.ui

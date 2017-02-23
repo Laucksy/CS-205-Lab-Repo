@@ -6,7 +6,7 @@ GUIWorm::GUIWorm(QWidget *parent) :
     ui(new Ui::GUIWorm)
 {
     ui->setupUi(this);
-    worm = *(new Worm(20,77));
+    worm = *(new Worm(12,70));
     worm.init();
     // create an empty string
     QString temp_board = "";

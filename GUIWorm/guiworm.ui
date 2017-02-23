@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>472</width>
-    <height>333</height>
+    <width>772</width>
+    <height>477</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,31 +17,41 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>50</y>
-     <width>281</width>
-     <height>221</height>
+     <y>30</y>
+     <width>531</width>
+     <height>421</height>
     </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
    </property>
    <property name="font">
     <font>
-     <family>DejaVu Sans</family>
+     <family>Inconsolata</family>
+     <pointsize>11</pointsize>
     </font>
    </property>
    <property name="frameShape">
-    <enum>QFrame::Box</enum>
+    <enum>QFrame::Panel</enum>
    </property>
    <property name="frameShadow">
     <enum>QFrame::Plain</enum>
    </property>
+   <property name="lineWidth">
+    <number>2</number>
+   </property>
    <property name="text">
-    <string/>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;1&lt;/p&gt;&lt;p&gt;2&lt;/p&gt;&lt;p&gt;3&lt;/p&gt;&lt;p&gt;4&lt;/p&gt;&lt;p&gt;4&lt;/p&gt;&lt;p&gt;5&lt;/p&gt;&lt;p&gt;6&lt;/p&gt;&lt;p&gt;7&lt;/p&gt;&lt;p&gt;8&lt;/p&gt;&lt;p&gt;9&lt;/p&gt;&lt;p&gt;10&lt;/p&gt;&lt;p&gt;11&lt;/p&gt;&lt;p&gt;12&lt;/p&gt;&lt;p&gt;13&lt;/p&gt;&lt;p&gt;14&lt;/p&gt;&lt;p&gt;15&lt;/p&gt;&lt;p&gt;16&lt;/p&gt;&lt;p&gt;17&lt;/p&gt;&lt;p&gt;18&lt;/p&gt;&lt;p&gt;19&lt;/p&gt;&lt;p&gt;20&lt;/p&gt;&lt;p&gt;21&lt;/p&gt;&lt;p&gt;22&lt;/p&gt;&lt;p&gt;23&lt;/p&gt;&lt;p&gt;24&lt;/p&gt;&lt;p&gt;25&lt;/p&gt;&lt;p&gt;26&lt;/p&gt;&lt;p&gt;27&lt;/p&gt;&lt;p&gt;28&lt;/p&gt;&lt;p&gt;29&lt;/p&gt;&lt;p&gt;30&lt;/p&gt;&lt;p&gt;31&lt;/p&gt;&lt;p&gt;32&lt;/p&gt;&lt;p&gt;33&lt;/p&gt;&lt;p&gt;34&lt;/p&gt;&lt;p&gt;35&lt;/p&gt;&lt;p&gt;36&lt;/p&gt;&lt;p&gt;37&lt;/p&gt;&lt;p&gt;38&lt;/p&gt;&lt;p&gt;39&lt;/p&gt;&lt;p&gt;40&lt;/p&gt;&lt;p&gt;41&lt;/p&gt;&lt;p&gt;42&lt;/p&gt;&lt;p&gt;43&lt;/p&gt;&lt;p&gt;45&lt;/p&gt;&lt;p&gt;46&lt;/p&gt;&lt;p&gt;47&lt;/p&gt;&lt;p&gt;48&lt;/p&gt;&lt;p&gt;49&lt;/p&gt;&lt;p&gt;50&lt;/p&gt;&lt;p&gt;51&lt;/p&gt;&lt;p&gt;52&lt;/p&gt;&lt;p&gt;53&lt;/p&gt;&lt;p&gt;54&lt;/p&gt;&lt;p&gt;55&lt;/p&gt;&lt;p&gt;56&lt;/p&gt;&lt;p&gt;57&lt;/p&gt;&lt;p&gt;58&lt;/p&gt;&lt;p&gt;59&lt;/p&gt;&lt;p&gt;60&lt;/p&gt;&lt;p&gt;61&lt;/p&gt;&lt;p&gt;62&lt;/p&gt;&lt;p&gt;63&lt;/p&gt;&lt;p&gt;64&lt;/p&gt;&lt;p&gt;65&lt;/p&gt;&lt;p&gt;66&lt;/p&gt;&lt;p&gt;67&lt;/p&gt;&lt;p&gt;68&lt;/p&gt;&lt;p&gt;69&lt;/p&gt;&lt;p&gt;70&lt;/p&gt;&lt;p&gt;71&lt;/p&gt;&lt;p&gt;72&lt;/p&gt;&lt;p&gt;73&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>290</x>
-     <y>100</y>
+     <x>580</x>
+     <y>160</y>
      <width>176</width>
      <height>140</height>
     </rect>
