@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>472</width>
+    <height>333</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>GUIWorm</string>
   </property>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="board_display">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>70</y>
-     <width>111</width>
-     <height>131</height>
+     <x>10</x>
+     <y>50</y>
+     <width>281</width>
+     <height>221</height>
     </rect>
    </property>
    <property name="font">
@@ -27,17 +27,23 @@
      <family>DejaVu Sans</family>
     </font>
    </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Plain</enum>
+   </property>
    <property name="text">
-    <string>TextLabel</string>
+    <string/>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>290</x>
      <y>100</y>
-     <width>101</width>
-     <height>101</height>
+     <width>176</width>
+     <height>140</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -157,18 +163,6 @@
     </item>
    </layout>
   </widget>
-  <zorder>uBtn</zorder>
-  <zorder>lBtn</zorder>
-  <zorder>rBtn</zorder>
-  <zorder>dBtn</zorder>
-  <zorder>label</zorder>
-  <zorder></zorder>
-  <zorder>horizontalSpacer</zorder>
-  <zorder>horizontalSpacer_2</zorder>
-  <zorder>horizontalSpacer_2</zorder>
-  <zorder>horizontalSpacer_3</zorder>
-  <zorder>horizontalSpacer_4</zorder>
-  <zorder>horizontalSpacer_5</zorder>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

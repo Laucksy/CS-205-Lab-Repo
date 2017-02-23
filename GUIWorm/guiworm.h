@@ -26,6 +26,7 @@ private slots:
 
     void on_uBtn_clicked();
 
+
 private:
     Ui::GUIWorm *ui;
 };

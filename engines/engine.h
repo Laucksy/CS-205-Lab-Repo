@@ -14,12 +14,14 @@ public:
     bool add(char obj, int r, int c);
     char get(int r, int c);
     void remove(int r, int c);
-protected:
+
     int rows;
     int cols;
 
     // declaration
     char ** gameboard;
+protected:
+
 
 };
 
