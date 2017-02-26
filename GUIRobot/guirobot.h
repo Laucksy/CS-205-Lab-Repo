@@ -17,6 +17,9 @@ public:
     ~GUIRobot();
 
     Robots robot;
+protected:
+    void redraw();
+    void gameflow();
 private slots:
     void on_waitToEndBtn_clicked();
 

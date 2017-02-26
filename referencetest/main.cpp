@@ -84,8 +84,10 @@ TEST_F(GameTest, TESTGAME) {
 TEST_F(PlayerTest, TESTPLAYERADD) {
     player->add(game);
     player->add(game2);
-    ASSERT_TRUE(player->get_game_history()->get_game(0)->get_score() == 12345);
-    ASSERT_TRUE(player->get_game_history()->get_game(0)->get_game_name() == "Test");
+    ASSERT_TRUE(player->get_game_history()->get_game(0)->get_score()
+                    == 12345);
+    ASSERT_TRUE(player->get_game_history()->get_game(0)->get_game_name()
+                    == "Test");
 }
 
 TEST_F(GameHistoryTest, TESTGAMEHISTORY) {
@@ -100,8 +102,10 @@ TEST_F(GameHistoryTest, TESTGAMEHISTORY) {
 TEST_F(GameHistoryTest, TESTGAMEHISTORYADD) {
     GameHistory *history = new GameHistory(player);
     history->add(game);
-    ASSERT_TRUE(history->get_game(0)->get_player()->get_player_firstname() == "Erik");
-    ASSERT_TRUE(history->get_game(0)->get_player()->get_player_lastname() == "Laucks");
+    ASSERT_TRUE(history->get_game(0)->get_player()->get_player_firstname()
+                    == "Erik");
+    ASSERT_TRUE(history->get_game(0)->get_player()->get_player_lastname()
+                    == "Laucks");
     ASSERT_TRUE(history->get_game(0)->get_score() == 12345);
     ASSERT_TRUE(history->get_game(0)->get_game_name() == "Test");
 }
@@ -109,8 +113,10 @@ TEST_F(GameHistoryTest, TESTGAMEHISTORYADD) {
 TEST_F(PlayerHistoryTest, TESTPLAYERHISTORYADDGAME) {
     PlayerGameHistory *history = new PlayerGameHistory();
     history->add_game(game);
-    ASSERT_TRUE(history->get_game(0)->get_player()->get_player_firstname() == "Erik");
-    ASSERT_TRUE(history->get_game(0)->get_player()->get_player_lastname() == "Laucks");
+    ASSERT_TRUE(history->get_game(0)->get_player()->get_player_firstname()
+                    == "Erik");
+    ASSERT_TRUE(history->get_game(0)->get_player()->get_player_lastname()
+                    == "Laucks");
     ASSERT_TRUE(history->get_game(0)->get_score() == 12345);
     ASSERT_TRUE(history->get_game(0)->get_game_name() == "Test");
 }
@@ -189,7 +195,7 @@ TEST_F(PlayerHistoryTest, TESTPLAYERHISTORYAVGSCOREFORPLAYER) {
     game2->set_score(20);
     ASSERT_TRUE(history->avg_score_for_player(player) == 0);
     history->add_game(game);
-    ASSERT_TRUE(history->avg_score_for_player(player) == 10) << history->avg_game_score() << "," << history->avg_score_for_player(player);
+    ASSERT_TRUE(history->avg_score_for_player(player) == 10);
     history->add_game(game2);
     ASSERT_TRUE(history->avg_score_for_player(player) == 15);
     history->add_game(game);

@@ -13,6 +13,10 @@ Robots::Robots() : Engine::Engine() {
     botNum = 0;
 }
 
+/* Overloaded constructor
+ * @param r - Number of rows in gameboard
+ * @param c - Number of columnsin gameboard
+ */
 Robots::Robots(int r, int c) : Engine::Engine(r, c) {
     srand(time(NULL));
     playerRow = -1;

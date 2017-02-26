@@ -4,19 +4,26 @@
 //    Each stored pointer references a unique player.
 //    Object tracks each game that has been played in the system.
 //    Games are stored in order that they are played.
-//    Methods will be provided for calculating the following statistics dynamically, this is to say,
-//          these statistics are not stored but calculated as needed.
+//    Methods will be provided for calculating the following statistics
+//          dynamically, this is to say, these statistics are not
+//          stored but calculated as needed.
 //        Number of games played.
 //        Number of players that have played games.
 //        Average games played per player.
 //        Top game score.
 //        Average game score for all games.
 //        What was the average score for a specific player.
-//    Methods will be provided for adding players playing a specific game and a final score as an integer value.
+//    Methods will be provided for adding players playing a specific game
+//          and a final score as an integer value.
 
+/* Default constructor
+ */
 PlayerGameHistory::PlayerGameHistory() {
 }
 
+/* Copy constructor
+ * @param obj - object to copy
+ */
 PlayerGameHistory::PlayerGameHistory(PlayerGameHistory &obj) {
     for(unsigned i = 0; i < obj.players.size(); i++) {
         players.push_back(obj.players.at(i));
@@ -26,6 +33,8 @@ PlayerGameHistory::PlayerGameHistory(PlayerGameHistory &obj) {
     }
 }
 
+/* Default destructor
+ */
 PlayerGameHistory::~PlayerGameHistory() {
     players.clear();
     vector<Player*>().swap(players);
@@ -33,6 +42,9 @@ PlayerGameHistory::~PlayerGameHistory() {
     vector<Game*>().swap(games);
 }
 
+/* Assignment operator
+ * @param obj - object to copy
+ */
 void PlayerGameHistory::operator=(PlayerGameHistory &obj) {
     for(unsigned i = 0; i < obj.players.size(); i++) {
         players.push_back(obj.players.at(i));
@@ -42,30 +54,53 @@ void PlayerGameHistory::operator=(PlayerGameHistory &obj) {
     }
 }
 
+/* Adds player to the player history
+ * @param p - player to add
+ */
 void PlayerGameHistory::add_player(Player *p) {
     players.push_back(p);
 }
 
+/* Adds game to the game history
+ * @param g - game to add
+ */
 void PlayerGameHistory::add_game(Game *g) {
     games.push_back(g);
 }
 
+/* Gets the player from the history
+ * @param index - index to get from
+ * @return player at the given index
+ */
 Player* PlayerGameHistory::get_player(int index) {
     return players[index];
 }
 
+/* Gets the game from the history
+ * @param index - index to get from
+ * @return game at the given index
+ */
 Game* PlayerGameHistory::get_game(int index) {
     return games[index];
 }
 
+/* Gets the number of games player
+ * @return number of games
+ */
 int PlayerGameHistory::games_played() {
     return (int)games.size();
 }
 
+/* Gets the number of players in the history
+ * @return number of players
+ */
 int PlayerGameHistory::num_players() {
     return (int)players.size();
 }
 
+/* Calculates the averages number of games per player
+ * @return average games
+ */
 float PlayerGameHistory::avg_games_per_player() {
     if(num_players() != 0)
         return 1.0 * games_played() / num_players();
@@ -73,6 +108,9 @@ float PlayerGameHistory::avg_games_per_player() {
         return 0;
 }
 
+/* Finds the top score of all the games
+ * @return highest score
+ */
 int PlayerGameHistory::top_score() {
     int max = 0;
     for(unsigned i = 0; i < games.size(); i++) {
@@ -82,6 +120,9 @@ int PlayerGameHistory::top_score() {
     return max;
 }
 
+/* Calculates the average score of all games
+ * @return average score
+ */
 float PlayerGameHistory::avg_game_score() {
     int total = 0;
     for(unsigned i = 0; i < games.size(); i++) {
@@ -93,6 +134,9 @@ float PlayerGameHistory::avg_game_score() {
         return 0;
 }
 
+/* Calculates the average score for a given player
+ * @return player's average score
+ */
 float PlayerGameHistory::avg_score_for_player(Player *p) {
     /*GameHistory *history = p->get_game_history();
     int total = 0;

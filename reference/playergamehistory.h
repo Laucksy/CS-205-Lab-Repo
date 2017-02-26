@@ -25,12 +25,13 @@ public:
     Game* get_game(int index);
 
     //Statistics
-    int games_played(); //Number of games played.
-    int num_players(); //Number of players that have played games.
-    float avg_games_per_player(); //Average games played per player.
-    int top_score(); //Top game score.
-    float avg_game_score(); //Average game score for all games.
-    float avg_score_for_player(Player *p); //What was the average score for a specific player.
+    int games_played(); //Number of games played
+    int num_players(); //Number of players that have played games
+    float avg_games_per_player(); //Average games played per player
+    int top_score(); //Top game score
+    float avg_game_score(); //Average game score for all games
+    float avg_score_for_player(Player *p); //What was the average score
+                                                //for a specific player
 
 private:
     vector<Player*> players;
