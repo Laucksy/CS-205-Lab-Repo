@@ -1,0 +1,117 @@
+#include "playergamehistory.h"
+
+//    Object tracks each player that has played a game in the system.
+//    Each stored pointer references a unique player.
+//    Object tracks each game that has been played in the system.
+//    Games are stored in order that they are played.
+//    Methods will be provided for calculating the following statistics dynamically, this is to say,
+//          these statistics are not stored but calculated as needed.
+//        Number of games played.
+//        Number of players that have played games.
+//        Average games played per player.
+//        Top game score.
+//        Average game score for all games.
+//        What was the average score for a specific player.
+//    Methods will be provided for adding players playing a specific game and a final score as an integer value.
+
+PlayerGameHistory::PlayerGameHistory() {
+}
+
+PlayerGameHistory::PlayerGameHistory(PlayerGameHistory &obj) {
+    for(unsigned i = 0; i < obj.players.size(); i++) {
+        players.push_back(obj.players.at(i));
+    }
+    for(unsigned i = 0; i < obj.games.size(); i++) {
+        games.push_back(obj.games.at(i));
+    }
+}
+
+PlayerGameHistory::~PlayerGameHistory() {
+    players.clear();
+    vector<Player*>().swap(players);
+    games.clear();
+    vector<Game*>().swap(games);
+}
+
+void PlayerGameHistory::operator=(PlayerGameHistory &obj) {
+    for(unsigned i = 0; i < obj.players.size(); i++) {
+        players.push_back(obj.players.at(i));
+    }
+    for(unsigned i = 0; i < obj.games.size(); i++) {
+        games.push_back(obj.games.at(i));
+    }
+}
+
+void PlayerGameHistory::add_player(Player *p) {
+    players.push_back(p);
+}
+
+void PlayerGameHistory::add_game(Game *g) {
+    games.push_back(g);
+}
+
+Player* PlayerGameHistory::get_player(int index) {
+    return players[index];
+}
+
+Game* PlayerGameHistory::get_game(int index) {
+    return games[index];
+}
+
+int PlayerGameHistory::games_played() {
+    return (int)games.size();
+}
+
+int PlayerGameHistory::num_players() {
+    return (int)players.size();
+}
+
+float PlayerGameHistory::avg_games_per_player() {
+    if(num_players() != 0)
+        return 1.0 * games_played() / num_players();
+    else
+        return 0;
+}
+
+int PlayerGameHistory::top_score() {
+    int max = 0;
+    for(unsigned i = 0; i < games.size(); i++) {
+        if(games.at(i)->get_score() > max)
+            max = games.at(i)->get_score();
+    }
+    return max;
+}
+
+float PlayerGameHistory::avg_game_score() {
+    int total = 0;
+    for(unsigned i = 0; i < games.size(); i++) {
+            total += games.at(i)->get_score();
+    }
+    if(games_played() != 0)
+        return 1.0 * total / games_played();
+    else
+        return 0;
+}
+
+float PlayerGameHistory::avg_score_for_player(Player *p) {
+    /*GameHistory *history = p->get_game_history();
+    int total = 0;
+    for(int i = 0; i < history->get_num_games(); i++) {
+        total += history->get_game(i)->get_score();
+    }
+    if(history->get_num_games() != 0)
+        return 1.0 * total / history->get_num_games();
+    else
+        return 0;*/
+
+    int total = 0;
+    for(int i = 0; i < games_played(); i++) {
+        if(get_game(i)->get_player() == p)
+            total += get_game(i)->get_score();
+    }
+
+    if(games_played() != 0)
+        return 1.0 * total / games_played();
+    else
+        return 0;
+}

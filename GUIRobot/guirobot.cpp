@@ -193,6 +193,10 @@ void GUIRobot::on_leftUpBtn_clicked()
     ui->board_display->setText(temp_board);
 }
 
+void GUIRobot::on_pushButton_3_clicked() {
+
+}
+
 void GUIRobot::on_rightUpBtn_clicked()
 {
     robot.turn('u');

@@ -9,4 +9,6 @@ SUBDIRS += \
     engine_tests \
     tui \
     GUIWorm \
-    GUIRobot
+    GUIRobot \
+    reference \
+    referencetest
