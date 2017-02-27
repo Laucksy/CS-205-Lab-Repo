@@ -45,6 +45,8 @@ private slots:
 
     void on_upBtn_clicked();
 
+    void on_restart_clicked();
+
 private:
     Ui::GUIRobot *ui;
 };

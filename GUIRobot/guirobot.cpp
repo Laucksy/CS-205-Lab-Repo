@@ -31,6 +31,8 @@ void GUIRobot::redraw()
     ui->board_display->clear();
     // load the QString into the label
     ui->board_display->setText(temp_board);
+    //hides, or unhides reset button
+    ui->restart->setHidden(robot.lost());
 }
 
 void GUIRobot::gameflow() {
@@ -54,6 +56,7 @@ void GUIRobot::gameflow() {
     }
 }
 
+//wait to end button clicked
 void GUIRobot::on_waitToEndBtn_clicked()
 {
     robot.turn('w');
@@ -61,6 +64,7 @@ void GUIRobot::on_waitToEndBtn_clicked()
     gameflow();
 }
 
+//quit button clicked
 void GUIRobot::on_QuitBTN_clicked()
 {
     robot.turn('q');
@@ -68,6 +72,7 @@ void GUIRobot::on_QuitBTN_clicked()
     gameflow();
 }
 
+//teleport button clicked
 void GUIRobot::on_teleportBTn_clicked()
 {
     robot.turn('t');
@@ -75,6 +80,8 @@ void GUIRobot::on_teleportBTn_clicked()
     gameflow();
 }
 
+
+//arrow doen left clicked
 void GUIRobot::on_leftDownBtn_clicked()
 {
     robot.turn('b');
@@ -82,6 +89,7 @@ void GUIRobot::on_leftDownBtn_clicked()
     gameflow();
 }
 
+//arrow down clicked
 void GUIRobot::on_downBtn_clicked()
 {
     robot.turn('j');
@@ -89,6 +97,7 @@ void GUIRobot::on_downBtn_clicked()
     gameflow();
 }
 
+//arrow down to the right clicked
 void GUIRobot::on_rightDownBtn_clicked()
 {
     robot.turn('n');
@@ -96,6 +105,7 @@ void GUIRobot::on_rightDownBtn_clicked()
     gameflow();
 }
 
+//arrow to the right clicked
 void GUIRobot::on_rightBTn_clicked()
 {
     robot.turn('l');
@@ -103,6 +113,7 @@ void GUIRobot::on_rightBTn_clicked()
     gameflow();
 }
 
+//arrow to the left clicked
 void GUIRobot::on_LeftBtn_clicked()
 {
     robot.turn('h');
@@ -110,6 +121,7 @@ void GUIRobot::on_LeftBtn_clicked()
     gameflow();
 }
 
+//arrow to the top left clicked
 void GUIRobot::on_leftUpBtn_clicked()
 {
     robot.turn('y');
@@ -117,10 +129,7 @@ void GUIRobot::on_leftUpBtn_clicked()
     gameflow();
 }
 
-void GUIRobot::on_pushButton_3_clicked() {
-
-}
-
+//arrow to the up right clikced
 void GUIRobot::on_rightUpBtn_clicked()
 {
     robot.turn('u');
@@ -128,9 +137,20 @@ void GUIRobot::on_rightUpBtn_clicked()
     gameflow();
 }
 
+//arrow up clicked
 void GUIRobot::on_upBtn_clicked()
 {
     robot.turn('k');
     redraw();
     gameflow();
+}
+
+//restart button clicked
+void GUIRobot::on_restart_clicked()
+{
+    robot = *(new Robots(25,58));
+
+    robot.init_board(robot.get_init_bots());
+
+    redraw();
 }

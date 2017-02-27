@@ -26,6 +26,10 @@ private slots:
 
     void on_uBtn_clicked();
 
+    void reDraw();
+
+
+    void on_restart_clicked();
 
 private:
     Ui::GUIWorm *ui;
