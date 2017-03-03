@@ -11,4 +11,5 @@ SUBDIRS += \
     GUIWorm \
     GUIRobot \
     reference \
-    referencetest
+    referencetest \
+    UIGameConsol
