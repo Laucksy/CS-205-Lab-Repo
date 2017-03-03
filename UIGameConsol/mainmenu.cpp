@@ -12,9 +12,17 @@ mainMenu::mainMenu()
         draw_screen();
         int ch = getch();
         switch(ch){
-        case(97):
-                //create new player
-            break;
+        case(97):{
+            //create new player
+            newPlayer();
+
+            mvprintw(0,0,"CAtr");
+            refresh();
+            for(int x = 0; x<300000000; x++)
+            {
+            }
+            //currentPlayer = createPlayer.player;
+        }break;
         case(98):
             //select a player
             break;
@@ -46,6 +54,7 @@ mainMenu::mainMenu()
 void mainMenu::draw_screen()
 {
     clear();
+
     std::string playerName = "Current Player: ";
     if(currentPlayer.get_player_firstname() != "")
     {
@@ -60,6 +69,10 @@ void mainMenu::draw_screen()
                    "f. Play Robots \n "
                    "g. Play Worm \n \n "
                    "q. Exit Program ");
-
+/*
+    int ch = getch();
+    std::string i = std::to_string(ch);
+    mvprintw(10,10,i.c_str());
+*/
     refresh();
 }
