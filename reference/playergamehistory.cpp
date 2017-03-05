@@ -71,9 +71,17 @@ void PlayerGameHistory::operator=(PlayerGameHistory &obj) {
     }
 }
 
-void PlayerGameHistory::construct_game(int size, char **data, char **colNames) {
+/* Takes the data from the game select all callback and
+ * constructs all of the game objects
+ * @param size - number of columns
+ * @param data - data from table
+ * @param colNames - columns from table
+ */
+void PlayerGameHistory::construct_game(int size, char **data,
+                                       char **colNames) {
     for(int i = 0; i < size; i++) {
-        //cout << colNames[i] << " = " << (data[i] ? std::string(data[i]) : "NULL") << endl;
+        //cout << colNames[i] << " = " << (data[i] ? std::string(data[i])
+            //: "NULL") << endl;
     }
     int id = atoi(data[0]);
     int player = atoi(data[1]);
@@ -87,9 +95,17 @@ void PlayerGameHistory::construct_game(int size, char **data, char **colNames) {
     games.push_back(g);
 }
 
-void PlayerGameHistory::construct_player(int size, char **data, char **colNames) {
+/* Takes the data from the player select all callback and
+ * constructs all of the player objects
+ * @param size - number of columns
+ * @param data - data from table
+ * @param colNames - columns from table
+ */
+void PlayerGameHistory::construct_player(int size, char **data,
+                                         char **colNames) {
     for(int i = 0; i < size; i++) {
-        //cout << colNames[i] << " = " << (data[i] ? std::string(data[i]) : "NULL") << endl;
+        //cout << colNames[i] << " = " << (data[i] ? std::string(data[i]
+            //: "NULL") << endl;
     }
     int id = atoi(data[0]);
     string fName = string(data[1]);

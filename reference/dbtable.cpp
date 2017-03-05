@@ -89,7 +89,7 @@ void DBTable::build_table() {
     exist();
 
     if (!table_exists) {
-        std::cout << "Creating table AAAAAAAAAAAAAAAA" << sql_create << std::endl;
+        std::cout << "Creating table AA" << sql_create << std::endl;
         // if it does not exist create table
         create();
     }
