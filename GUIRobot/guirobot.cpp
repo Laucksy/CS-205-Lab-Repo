@@ -32,7 +32,8 @@ void GUIRobot::redraw()
     // load the QString into the label
     ui->board_display->setText(temp_board);
     //hides, or unhides reset button
-    ui->restart->setHidden(robot.lost());
+    //ui->restart->setHidden(robot.lost());
+
 }
 
 void GUIRobot::gameflow() {
@@ -143,6 +144,10 @@ void GUIRobot::on_upBtn_clicked()
     robot.turn('k');
     redraw();
     gameflow();
+}
+
+void GUIRobot::on_pushButton_3_clicked() {
+
 }
 
 //restart button clicked

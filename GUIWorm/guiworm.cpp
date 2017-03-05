@@ -23,7 +23,6 @@ GUIWorm::GUIWorm(QWidget *parent) :
     // load the QString into the label
     ui->board_display->setText(temp_board);
     ui->restart->setHidden(worm.alive);
-
 }
 
 GUIWorm::~GUIWorm()
@@ -37,9 +36,9 @@ void GUIWorm::reDraw()
     // create an empty string
     QString temp_board = "";
     // create a single string from the array that stores the gameboard
-    for(int row = 0; row < robot.rows; row++) {
-        for(int col = 0; col < robot.cols; col++) {
-            temp_board += robot.get(row,col);
+    for(int row = 0; row < worm.rows; row++) {
+        for(int col = 0; col < worm.cols; col++) {
+            temp_board += worm.get(row,col);
         }
         temp_board += '\n';
     }

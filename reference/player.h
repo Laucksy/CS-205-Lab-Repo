@@ -22,6 +22,8 @@ public:
     void add(Game *g);
 
     //Gets/Sets
+    int get_db_id();
+    void set_db_id(int i);
     Game* get_game();
     void set_game(Game *g);
     GameHistory* get_game_history();
@@ -33,6 +35,7 @@ public:
     string get_player_address();
     void set_player_address(string n);
 private:
+    int db_id;
     Game *game;
     GameHistory *history;
     string firstName;

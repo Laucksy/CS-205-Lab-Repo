@@ -2,6 +2,13 @@
 #define PLAYERGAMEHISTORY_H
 #include "iostream"
 #include "vector"
+#include "dbtool.h"
+class DBTool;
+#include "dbtable.h"
+#include "dbtablegame.h"
+class DBTableGame;
+#include "dbtableplayer.h"
+class DBTablePlayer;
 #include "player.h"
 class Player;
 #include "game.h"
@@ -17,6 +24,10 @@ public:
     PlayerGameHistory(PlayerGameHistory &obj);
     ~PlayerGameHistory();
     void operator=(PlayerGameHistory &obj);
+
+    //Database stuff
+    void construct_game(int size, char **data, char **colNames);
+    void construct_player(int size, char **data, char **colNames);
 
     //Modify vectors
     void add_player(Player *p);
@@ -34,6 +45,9 @@ public:
                                                 //for a specific player
 
 private:
+    DBTool *dbtool;
+    DBTableGame *tablegame;
+    DBTablePlayer *tableplayer;
     vector<Player*> players;
     vector<Game*> games;
 };

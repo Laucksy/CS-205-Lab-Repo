@@ -1,5 +1,6 @@
 #include "playergamehistory.h"
 
+/*
 //    Object tracks each player that has played a game in the system.
 //    Each stored pointer references a unique player.
 //    Object tracks each game that has been played in the system.
@@ -15,10 +16,26 @@
 //        What was the average score for a specific player.
 //    Methods will be provided for adding players playing a specific game
 //          and a final score as an integer value.
+*/
 
 /* Default constructor
  */
 PlayerGameHistory::PlayerGameHistory() {
+    dbtool = new DBTool("LabDB");
+    tablegame = new DBTableGame(dbtool, "TableGame");
+    tablegame->set_pgh(this);
+    tablegame->select_all();
+    tableplayer = new DBTablePlayer(dbtool, "TablePlayer");
+    tableplayer->set_pgh(this);
+    tableplayer->select_all();
+    for(unsigned i = 0; i < games.size(); i++) {
+        for(unsigned j = 0; j < players.size(); j++) {
+            if(games.at(i)->get_p_id() == players.at(j)->get_db_id()) {
+                games.at(i)->set_player(players.at(j));
+                players.at(j)->add(games.at(i));
+            }
+        }
+    }
 }
 
 /* Copy constructor
@@ -52,6 +69,38 @@ void PlayerGameHistory::operator=(PlayerGameHistory &obj) {
     for(unsigned i = 0; i < obj.games.size(); i++) {
         games.push_back(obj.games.at(i));
     }
+}
+
+void PlayerGameHistory::construct_game(int size, char **data, char **colNames) {
+    for(int i = 0; i < size; i++) {
+        //cout << colNames[i] << " = " << (data[i] ? std::string(data[i]) : "NULL") << endl;
+    }
+    int id = atoi(data[0]);
+    int player = atoi(data[1]);
+    string name = string(data[2]);
+    int score = atoi(data[3]);
+    Game *g = new Game();
+    g->set_db_id(id);
+    g->set_p_id(player);
+    g->set_game_name(name);
+    g->set_score(score);
+    games.push_back(g);
+}
+
+void PlayerGameHistory::construct_player(int size, char **data, char **colNames) {
+    for(int i = 0; i < size; i++) {
+        //cout << colNames[i] << " = " << (data[i] ? std::string(data[i]) : "NULL") << endl;
+    }
+    int id = atoi(data[0]);
+    string fName = string(data[1]);
+    string lName = string(data[2]);
+    string address = string(data[3]);
+    Player *p = new Player();
+    p->set_db_id(id);
+    p->set_player_firstname(fName);
+    p->set_player_lastname(lName);
+    p->set_player_address(address);
+    players.push_back(p);
 }
 
 /* Adds player to the player history

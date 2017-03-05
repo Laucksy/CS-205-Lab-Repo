@@ -7,10 +7,20 @@ SOURCES += main.cpp \
     player.cpp \
     playergamehistory.cpp \
     game.cpp \
-    gamehistory.cpp
+    gamehistory.cpp \
+    dbtool.cpp \
+    dbtable.cpp \
+    dbtablegame.cpp \
+    dbtableplayer.cpp
 
 HEADERS += \
     player.h \
     playergamehistory.h \
     game.h \
-    gamehistory.h
+    gamehistory.h \
+    dbtool.h \
+    dbtable.h \
+    dbtablegame.h \
+    dbtableplayer.h
+
+LIBS += -l sqlite3

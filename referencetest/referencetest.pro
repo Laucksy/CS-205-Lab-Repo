@@ -5,6 +5,7 @@ CONFIG -= qt
 
 # if you are having compiler complaints about pthread, uncomment the following
 LIBS += -pthread
+LIBS += -l sqlite3
 
 SOURCES += main.cpp
 
@@ -27,3 +28,15 @@ SOURCES += ../reference/game.cpp
 
 HEADERS += ../reference/gamehistory.h
 SOURCES += ../reference/gamehistory.cpp
+
+HEADERS += ../reference/dbtool.h
+SOURCES += ../reference/dbtool.cpp
+
+HEADERS += ../reference/dbtable.h
+SOURCES += ../reference/dbtable.cpp
+
+HEADERS += ../reference/dbtablegame.h
+SOURCES += ../reference/dbtablegame.cpp
+
+HEADERS += ../reference/dbtableplayer.h
+SOURCES += ../reference/dbtableplayer.cpp

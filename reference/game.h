@@ -1,6 +1,8 @@
 #ifndef GAME_H
 #define GAME_H
 #include "iostream"
+#include "dbtool.h"
+#include "dbtablegame.h"
 #include "player.h"
 class Player;
 using namespace std;
@@ -17,6 +19,10 @@ public:
     void operator=(const Game &obj);
 
     //Gets/Sets
+    int get_db_id();
+    void set_db_id(int i);
+    int get_p_id();
+    void set_p_id(int i);
     Player* get_player();
     void set_player(Player *p);
     string get_game_name();
@@ -24,6 +30,8 @@ public:
     int get_score();
     void set_score(int s);
 private:
+    int db_id;
+    int p_id;
     Player *player;
     string name;
     int score;

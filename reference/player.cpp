@@ -1,5 +1,6 @@
 #include "player.h"
 
+/*
 //  Contains information about the player.
 //  Object references the most recent game played.
 //  Object references a GameHistory class that tracks all games played.
@@ -9,10 +10,12 @@
 //      Player First Name.
 //      Player Last Name.
 //      Player Address.
+*/
 
 /* Default constructor
  */
 Player::Player() {
+    db_id = -1;
     game = nullptr;
     history = new GameHistory(this);
     firstName = "";
@@ -25,6 +28,7 @@ Player::Player() {
  * @param h - game history to assign to player
  */
 Player::Player(Game *g, GameHistory *h) {
+    db_id = -1;
     game = g;
     game->set_player(this);
     history = h;
@@ -39,6 +43,7 @@ Player::Player(Game *g, GameHistory *h) {
  * @param a - address of the player
  */
 Player::Player(Game *g, GameHistory *h, string fn, string ln, string a) {
+    db_id = -1;
     game = g;
     game->set_player(this);
     history = h;
@@ -52,6 +57,7 @@ Player::Player(Game *g, GameHistory *h, string fn, string ln, string a) {
  * @param obj - player to copy (const because of vectors)
  */
 Player::Player(const Player &obj) {
+    db_id = obj.db_id;
     game = obj.game;
     history = obj.history;
     firstName = obj.firstName;
@@ -62,6 +68,13 @@ Player::Player(const Player &obj) {
 /* Default destructor
  */
 Player::~Player() {
+    DBTool *dbtool = new DBTool("LabDB");
+    DBTablePlayer *tableplayer = new DBTablePlayer(dbtool, "TablePlayer");
+    if(db_id == -1)
+        tableplayer->add_row(rand() % 10000, firstName, lastName, address);
+    if(!tableplayer->add_row(db_id, firstName, lastName, address)) {
+        tableplayer->update(db_id, firstName, lastName, address);
+    }
     delete game;
     delete history;
 }
@@ -70,6 +83,7 @@ Player::~Player() {
  * @param obj - player to copy (const because of vectors)
  */
 void Player::operator=(const Player &obj) {
+    db_id = obj.db_id;
     game = obj.game;
     history = obj.history;
     firstName = obj.firstName;
@@ -84,6 +98,20 @@ void Player::add(Game *g) {
     if(game != nullptr)
         history->add(game);
     game = g;
+}
+
+/* Gets the database id
+ * @return id
+ */
+int Player::get_db_id() {
+    return db_id;
+}
+
+/* Sets the database id
+ * @param i - new id
+ */
+void Player::set_db_id(int i) {
+    db_id = i;
 }
 
 /* Gets the game assigned to the player
