@@ -22,6 +22,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+LIBS += -l sqlite3
 
 SOURCES += main.cpp\
         guirobot.cpp \
@@ -33,3 +34,27 @@ HEADERS  += guirobot.h \
     ../engines/robots.h
 
 FORMS    += guirobot.ui
+
+HEADERS += ../reference/player.h
+SOURCES += ../reference/player.cpp
+
+HEADERS += ../reference/playergamehistory.h
+SOURCES += ../reference/playergamehistory.cpp
+
+HEADERS += ../reference/game.h
+SOURCES += ../reference/game.cpp
+
+HEADERS += ../reference/gamehistory.h
+SOURCES += ../reference/gamehistory.cpp
+
+HEADERS += ../reference/dbtool.h
+SOURCES += ../reference/dbtool.cpp
+
+HEADERS += ../reference/dbtable.h
+SOURCES += ../reference/dbtable.cpp
+
+HEADERS += ../reference/dbtablegame.h
+SOURCES += ../reference/dbtablegame.cpp
+
+HEADERS += ../reference/dbtableplayer.h
+SOURCES += ../reference/dbtableplayer.cpp

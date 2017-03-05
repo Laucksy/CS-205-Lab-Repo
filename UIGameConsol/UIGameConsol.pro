@@ -15,10 +15,16 @@ SOURCES += main.cpp \
     ../reference/game.cpp \
     ../reference/gamehistory.cpp \
     ../reference/player.cpp \
-    ../reference/playergamehistory.cpp
+    ../reference/playergamehistory.cpp \
+    ../reference/dbtool.cpp \
+    ../reference/dbtable.cpp \
+    ../reference/dbtablegame.cpp \
+    ../reference/dbtableplayer.cpp
+
 
 LIBS    += -lncurses \
-            -lform
+            -lform \
+             -l sqlite3
 
 HEADERS += \
     newplayer.h \
@@ -32,4 +38,8 @@ HEADERS += \
     ../reference/game.h \
     ../reference/gamehistory.h \
     ../reference/player.h \
-    ../reference/playergamehistory.h
+    ../reference/playergamehistory.h \
+    ../reference/dbtool.h \
+    ../reference/dbtable.h \
+    ../reference/dbtablegame.h \
+    ../reference/dbtableplayer.h
