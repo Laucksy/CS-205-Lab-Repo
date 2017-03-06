@@ -1,0 +1,17 @@
+-- toplevel directory
+authorized_keys
+qtrepo_lauckse_andrewsa.git
+repo_lauckse_andrewsa.git
+
+-- authorized_keys file
+ssh-rsa [clip] lab_3_08@localhost.localdomain
+ssh-rsa [clip] lauckse@jazz905.cs.lafayette.edu
+ssh-rsa [clip] andrewsa@jazz906.cs.lafayette.edu
+ssh-rsa [clip] erik@erik-mint
+ssh-rsa [clip] pfaffmaj@Jeffreys-MacBook-Pro.local
+ssh-rsa [clip] root@localhost.localdomain
+ssh-rsa [clip] pfaffmaj@fleetfoot.localhost
+
+-- Score: 9/10
+-- Assignment comments -----------------------------------
+  - Un-needed files present. (-1)

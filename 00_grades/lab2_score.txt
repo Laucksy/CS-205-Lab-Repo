@@ -1,0 +1,16 @@
+Assignment                : lab 2
+Group                     : andrews_laucks
+
+-- Activity Score out of 3 (based on rubric)
+Program compile           : 3
+Create tools sub-project. : 3
+Logging tool              : 3
+Config tool               : 1
+Comments                  : 1
+Error Handling            : 2
+
+Lab Score (out of 10)     : 7.0
+
+-- Comments ------------------
+  - Configure is not writing to file; can not confirm if it is 
+    reading from the file.
