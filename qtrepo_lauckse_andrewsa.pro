@@ -12,4 +12,5 @@ SUBDIRS += \
     GUIRobot \
     reference \
     referencetest \
-    UIGameConsol
+    UIGameConsol \
+    templates
