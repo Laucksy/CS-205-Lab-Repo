@@ -13,4 +13,5 @@ SUBDIRS += \
     reference \
     referencetest \
     UIGameConsol \
-    templates
+    templates \
+    GUIGameConsole
