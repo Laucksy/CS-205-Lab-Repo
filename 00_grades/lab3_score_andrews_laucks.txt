@@ -1,0 +1,24 @@
+Assignment                : lab 3
+Group                     : andrews_laucks
+
+-- Activity Score out of 3 (based on rubric)
+Compiles and Errors  : 3
+Comments             : 3
+Style                : 2
+Macro / Proj Org     : 3
+Gtest install        : 2
+Robot Design/test    : 2
+Worm Design/test     : 2
+
+Lab Score (out of 10)     : 7.8
+
+-- Comments ------------------
+
+- Unittests are minimal.
+
+- Comments are OK, but it is hard to identify them because there is not enough
+  whitespace provided. Also there are several large chunks of code that is not
+  well organized.
+
+- All Robot tests pass, but worm tests do not. However, many robot tests are
+  commented out. Also the number for worm tests seem very light.
