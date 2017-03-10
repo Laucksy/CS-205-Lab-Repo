@@ -8,4 +8,5 @@ SOURCES += main.cpp
 HEADERS += \
     tree.h \
     stack.h \
-    treenode.h
+    treenode.h \
+    stacknode.h

@@ -1,13 +1,46 @@
 #include "iostream"
 #include "tree.h"
+#include "stack.h"
+
 using namespace std;
 
 void tree_tests();
+void stack_tests();
 
 int main(int argc, char *argv[])
 {
-    tree_tests();
+    stack_tests();
+    //tree_tests();
     return 0;
+}
+
+void stack_tests(){
+    Stack<int> *stack = new Stack<int>();
+    StackNode<int> *testNode;
+    StackNode<int> *test2Node;
+
+    //Test base nodes
+    testNode = new StackNode<int>(6);
+    test2Node = new StackNode<int>(5, testNode);
+    cout << test2Node->getvalue() << "\n";
+    cout << test2Node->getNext()->getvalue() << "\n";
+    delete testNode;
+    delete test2Node;
+
+    //Test adding existing node to stack
+    stack = new Stack<int>();
+    testNode = new StackNode<int>(6);
+    stack->push(testNode);
+    cout << stack->peek()->getvalue() << "\n";
+
+    //Test adding value to stack
+    stack = new Stack<int>();
+    stack->push(5);
+    stack->push(7);
+    cout << stack->peek()->getvalue() << "\n"; // peek at top (7)
+    cout << stack->pop()->getvalue() << "\n"; // pop top (7)
+    cout << stack->pop()->getvalue() << "\n"; // pop top (5)
+
 }
 
 void tree_tests() {
