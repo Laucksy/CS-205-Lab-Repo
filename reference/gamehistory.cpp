@@ -21,16 +21,19 @@ GameHistory::GameHistory(Player *p) {
  * @param obj - game history to copy
  */
 GameHistory::GameHistory(GameHistory &obj) {
-    player = obj.player;
+    player = new Player(*obj.player);
     for(unsigned i = 0; i < obj.games.size(); i++) {
-        games.push_back(obj.games.at(i));
+        games.push_back(new Game(*obj.games.at(i)));
     }
 }
 
 /* Default destructor
  */
 GameHistory::~GameHistory() {
-    delete player;
+    //delete player;
+    //for(unsigned i = 0; i < games.size(); i++) {
+        //delete games.at(i);
+    //}
     games.clear();
     vector<Game*>().swap(games);
 }

@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "../engines/robots.h"
+#include "../reference/player.h"
 
 namespace Ui {
 class GUIRobot;
@@ -15,6 +16,9 @@ class GUIRobot : public QWidget
 public:
     explicit GUIRobot(QWidget *parent = 0);
     ~GUIRobot();
+
+    void setPGH(PlayerGameHistory* p);
+    void setPlayer(Player* p);
 
     Robots robot;
 protected:
@@ -49,6 +53,8 @@ private slots:
 
 private:
     Ui::GUIRobot *ui;
+    PlayerGameHistory* pgh;
+    Player* player;
 };
 
 #endif // GUIROBOT_H

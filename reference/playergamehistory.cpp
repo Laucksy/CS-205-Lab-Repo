@@ -53,8 +53,14 @@ PlayerGameHistory::PlayerGameHistory(PlayerGameHistory &obj) {
 /* Default destructor
  */
 PlayerGameHistory::~PlayerGameHistory() {
+    for(unsigned i = 0; i < players.size(); i++) {
+        delete players.at(i);
+    }
     players.clear();
     vector<Player*>().swap(players);
+    for(unsigned i = 0; i < games.size(); i++) {
+        delete games.at(i);
+    }
     games.clear();
     vector<Game*>().swap(games);
 }
@@ -215,7 +221,7 @@ float PlayerGameHistory::avg_score_for_player(Player *p) {
 
     int total = 0;
     for(int i = 0; i < games_played(); i++) {
-        if(get_game(i)->get_player() == p)
+        if(get_game(i)->get_player()->get_db_id() == p->get_db_id())
             total += get_game(i)->get_score();
     }
 

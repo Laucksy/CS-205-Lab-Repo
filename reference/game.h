@@ -15,6 +15,7 @@ public:
     Game(Player *p);
     Game(Player *p, string n, int s);
     Game(const Game &obj);
+    Game(Game &obj);
     ~Game();
     void operator=(const Game &obj);
 

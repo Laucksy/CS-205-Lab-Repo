@@ -21,7 +21,7 @@ Game::Game() {
  */
 Game::Game(Player *p) {
     db_id = -1;
-    p_id = -1;
+    p_id = p->get_db_id();
     player = p;
     name = "";
     score = 0;
@@ -35,7 +35,7 @@ Game::Game(Player *p) {
  */
 Game::Game(Player *p, string n, int s) {
     db_id = -1;
-    p_id = -1;
+    p_id = p->get_db_id();
     player = p;
     player->add(this);
     name = n;
@@ -53,6 +53,14 @@ Game::Game(const Game &obj) {
     score = obj.score;
 }
 
+Game::Game(Game &obj) {
+    db_id = obj.db_id;
+    p_id = obj.p_id;
+    player = new Player(*obj.player);
+    name = obj.name;
+    score = obj.score;
+}
+
 /* Default destructor
  */
 Game::~Game() {
@@ -62,7 +70,7 @@ Game::~Game() {
         ext->add_row(rand() % 10000, p_id, name, score);
     else if(!ext->add_row(db_id, p_id, name, score))
         ext->update(db_id, p_id, name, score);
-    delete player;
+    //delete player;
 }
 
 /* Assignment operator
@@ -116,6 +124,7 @@ Player* Game::get_player() {
  */
 void Game::set_player(Player *p) {
     player = p;
+    p_id = p->get_db_id();
     //player->set_game_history(new GameHistory(player));
 }
 

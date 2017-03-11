@@ -10,7 +10,7 @@ void stack_tests();
 int main(int argc, char *argv[])
 {
     stack_tests();
-    //tree_tests();
+    tree_tests();
     return 0;
 }
 

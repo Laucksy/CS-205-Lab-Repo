@@ -7,6 +7,10 @@
 #include "../GUIWorm/guiworm.h"
 #include "../engines/robots.h"
 #include "../engines/worm.h"
+#include "guiselectplayer.h"
+#include "guistatistics.h"
+#include "guinewplayer.h"
+#include "guitopthree.h"
 
 namespace Ui {
 class MainWindow;
@@ -21,6 +25,7 @@ public:
     ~MainWindow();
 
     PlayerGameHistory* pgh;
+    Player* curPlayer;
     //Robots* robot;
 private slots:
     void on_actionExit_Program_triggered();

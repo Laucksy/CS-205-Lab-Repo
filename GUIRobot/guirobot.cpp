@@ -16,6 +16,14 @@ GUIRobot::~GUIRobot()
     delete ui;
 }
 
+void GUIRobot::setPGH(PlayerGameHistory *p) {
+    pgh = p;
+}
+
+void GUIRobot::setPlayer(Player *p) {
+    player = p;
+}
+
 void GUIRobot::redraw()
 {
     // create an empty string
@@ -43,6 +51,11 @@ void GUIRobot::gameflow() {
     }
     if(robot.lost()) {
         redraw();
+        if(pgh != nullptr && player != nullptr) {
+            Game *g = new Game(player, player->get_player_firstname() +
+                    " " + player->get_player_lastname(), robot.get_score());
+            pgh->add_game(g);
+        }
         /*int answer = 0;
         while(answer != 121 && answer != 110) {
             answer = getch();
@@ -69,8 +82,9 @@ void GUIRobot::on_waitToEndBtn_clicked()
 void GUIRobot::on_QuitBTN_clicked()
 {
     robot.turn('q');
-    redraw();
-    gameflow();
+    this->close();
+    //redraw();
+    //gameflow();
 }
 
 //teleport button clicked

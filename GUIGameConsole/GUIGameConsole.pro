@@ -24,11 +24,23 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    guinewplayer.cpp \
+    guiselectplayer.cpp \
+    guitopthree.cpp \
+    guistatistics.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    guinewplayer.h \
+    guiselectplayer.h \
+    guitopthree.h \
+    guistatistics.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    guinewplayer.ui \
+    guiselectplayer.ui \
+    guitopthree.ui \
+    guistatistics.ui
 FORMS    += ../GUIRobot/guirobot.ui
 FORMS    += ../GUIWorm/guiworm.ui
 

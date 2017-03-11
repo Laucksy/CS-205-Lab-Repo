@@ -147,7 +147,9 @@ bool Robots::turn(char input) {
     int oldPCol = playerCol;
     if(input == 'q') { //Quits on command
         std::cout << "Exiting";
-        exit(0);
+        //exit(0);
+        this->~Robots();
+        return true;
     }
     if(input == 't') { //Runs teleport
         teleport();

@@ -65,14 +65,25 @@ Player::Player(const Player &obj) {
     address = obj.address;
 }
 
+Player::Player(Player &obj) {
+    db_id = obj.db_id;
+    game = new Game(*obj.game);
+    history = new GameHistory(*obj.history);
+    firstName = string(obj.firstName);
+    lastName = string(obj.lastName);
+    address = string(obj.address);
+}
+
 /* Default destructor
  */
 Player::~Player() {
+    std::cout << "Destructing player" << std::endl;
     DBTool *dbtool = new DBTool("LabDB");
     DBTablePlayer *tableplayer = new DBTablePlayer(dbtool, "TablePlayer");
     if(db_id == -1)
         tableplayer->add_row(rand() % 10000, firstName, lastName, address);
-    if(!tableplayer->add_row(db_id, firstName, lastName, address)) {
+    else if(!tableplayer->add_row(db_id, firstName, lastName, address)) {
+        cout << "Updating" << endl;
         tableplayer->update(db_id, firstName, lastName, address);
     }
     delete game;
@@ -83,6 +94,15 @@ Player::~Player() {
  * @param obj - player to copy (const because of vectors)
  */
 void Player::operator=(const Player &obj) {
+    db_id = obj.db_id;
+    game = obj.game;
+    history = obj.history;
+    firstName = obj.firstName;
+    lastName = obj.lastName;
+    address = obj.address;
+}
+
+void Player::operator=(Player &obj) {
     db_id = obj.db_id;
     game = obj.game;
     history = obj.history;

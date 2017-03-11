@@ -15,8 +15,10 @@ public:
     Player(Game *g, GameHistory *h);
     Player(Game *g, GameHistory *h, string fn, string ln, string a);
     Player(const Player &obj);
+    Player(Player &obj);
     ~Player();
     void operator=(const Player &obj);
+    void operator=(Player &obj);
 
     //Modify history
     void add(Game *g);
