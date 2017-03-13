@@ -1,0 +1,28 @@
+Assignment                : lab 4
+Group                     : andrews_laucks
+
+-- Activity Score out of 3 (based on rubric)
+Compilation and Errors     : 3
+Commenting/ Style          : 2
+Engine Parent Design       : 2
+Engine Class UnitTesting   : 0
+Screen Parent Design       : 2
+Robot TUI Functionality    : 3
+Worm TUI Functionality     : 2
+
+Lab Score (out of 10)     : 7.0
+
+-- Comments ------------------
+
+- Worm looses a section when it first moves.
+
+- Robot appears to work.
+
+- No unit-tests for the Engine parent class.
+
+- No real comments in Engine class.
+
+- The game board needs to be deleted in the reverse order it is created. You
+  just delete game board, which will cause a memory leak.
+
+- The endwin method should be in the destructor of the screen class.
