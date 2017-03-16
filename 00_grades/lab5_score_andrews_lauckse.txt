@@ -1,0 +1,39 @@
+Assignment                : lab 5
+Group                     : andrews_laucks
+
+-- Activity Score out of 3 (based on rubric)
+Compilation and Errors                  : 1
+Robot GUI Functionality                 : 0
+Worm GUI Functionality                  : 3
+Commenting/Style of Reference Code      : 2
+Pointer Code UnitTesting                : 3
+Pointer Code Construction/ Destruction  : 2
+
+Lab Score (out of 10)     : 6.2
+
+-- Comments ------------------
+
+- Calling robot from within wormgui code. Does not compile. Fixed, but the
+  robot has a compile error because ui->restart does not exist.
+
+- Worm works as previously, after code is corrected.
+
+- Can not similarly test the Robot gui.
+
+- The big comment blocks should be in the header files, where detail oriented
+  comments are in the cpp.
+
+- The playergamehistory class just clears the vectors but never deletes the
+  elements, causing a memory leak.
+
+g++ -c -pipe -g -std=gnu++11 -Wall -W -D_REENTRANT -fPIC -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I../../andrews_laucks/GUIWorm -I. -I/usr/local/Qt/5.7/gcc_64/include -I/usr/local/Qt/5.7/gcc_64/include/QtWidgets -I/usr/local/Qt/5.7/gcc_64/include/QtGui -I/usr/local/Qt/5.7/gcc_64/include/QtCore -I. -I. -I/usr/local/Qt/5.7/gcc_64/mkspecs/linux-g++ -o guiworm.o ../../andrews_laucks/GUIWorm/guiworm.cpp
+../../andrews_laucks/GUIWorm/guiworm.cpp: In member function ‘void GUIWorm::reDraw()’:
+../../andrews_laucks/GUIWorm/guiworm.cpp:40:28: error: ‘robot’ was not declared in this scope
+     for(int row = 0; row < robot.rows; row++) {
+                            ^~~~~
+
+g++ -c -pipe -g -std=gnu++11 -Wall -W -D_REENTRANT -fPIC -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I../../andrews_laucks/GUIRobot -I. -I/usr/local/Qt/5.7/gcc_64/include -I/usr/local/Qt/5.7/gcc_64/include/QtWidgets -I/usr/local/Qt/5.7/gcc_64/include/QtGui -I/usr/local/Qt/5.7/gcc_64/include/QtCore -I. -I. -I/usr/local/Qt/5.7/gcc_64/mkspecs/linux-g++ -o guirobot.o ../../andrews_laucks/GUIRobot/guirobot.cpp
+../../andrews_laucks/GUIRobot/guirobot.cpp: In member function ‘void GUIRobot::redraw()’:
+../../andrews_laucks/GUIRobot/guirobot.cpp:35:9: error: ‘class Ui::GUIRobot’ has no member named ‘restart’
+     ui->restart->setHidden(robot.lost());
+         ^~~~~~~
