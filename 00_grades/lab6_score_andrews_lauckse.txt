@@ -1,0 +1,20 @@
+>>> will accept a re-submission <<<
+
+Assignment                : lab 6
+Group                     : andrews_laucks
+
+-- Activity Score out of 3 (based on rubric)
+Compilation and Errors of TUI windows.             : 3
+Implementation and functionality of TUI.           : 1
+Compilation and Errors of DB Extension.            : 3
+Implementation and functionality of DB extension.  : 0
+
+Lab Score (out of 10)     : 5.0
+
+-- Comments ------------------
+
+- Compiles and runs.
+- But only the new player window seems active.
+- The main window option quit does not function.
+- Unsure if the DB code is doing anything.
+
