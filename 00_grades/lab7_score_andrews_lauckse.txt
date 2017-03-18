@@ -1,0 +1,15 @@
+Assignment                : lab 7
+Group                     : andrews_laucks
+
+-- Activity Score out of 3 (based on rubric)
+Compilation and Errors of GUI windows.          : 3
+Implementation and functionality of GUI         : 3
+Compilation and Errors of DB templates.         : 3
+Implementation and functionality of templates.  : 3
+
+Lab Score (out of 10)     : 10.0
+
+
+-- Comments ------------------
+
+- Great!!!
